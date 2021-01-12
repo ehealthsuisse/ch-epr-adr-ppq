@@ -1,3 +1,3 @@
 # Privacy Policy Templates according to CH:ADR/CH:PPQ
 These Privacy Policy Templates are used in context of the Swiss Electronic Patient Record (EPR) by the (reference) commmunities.
-The most recent versions of the templates are provieded here on GitHub exclusively. The website https://www.e-health-suisse.ch/specs ("Relevante Spezifikationen") now references this GitHub repository. eHealth Suisse is in charge of updating the files if necessary.
+The most recent versions of the templates are provieded here exclusively. The website https://www.e-health-suisse.ch/specs ("Relevante Spezifikationen") now references this GitHub repository. eHealth Suisse is in charge of updating the files if necessary.
