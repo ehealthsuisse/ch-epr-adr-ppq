@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+********************************************************
+Implementation material for Privacy Policy Format
+
+History:
+2017-02-15: First edition
+
+********************************************************
+-->
+<Policy
+	xmlns="urn:oasis:names:tc:xacml:2.0:policy:schema:os"
+	xmlns:hl7="urn:hl7-org:v3"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:deny-overrides"
+	PolicyId="urn:e-health-suisse:2015:policies:full-policy-administration">
+	<Description>
+		Base Policy 07 - permits full access to the Policy Repository.
+		This template must not be modified!
+	</Description>
+	<Target>
+		<Actions>
+			<Action>
+				<ActionMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:anyURI-equal">
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#anyURI">
+						urn:e-health-suisse:2015:policy-administration:PolicyQuery
+					</AttributeValue>
+					<ActionAttributeDesignator DataType="http://www.w3.org/2001/XMLSchema#anyURI"
+					AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id"/>
+				</ActionMatch>
+			</Action>
+			<Action>
+				<ActionMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:anyURI-equal">
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#anyURI">
+						urn:e-health-suisse:2015:policy-administration:AddPolicy
+					</AttributeValue>
+					<ActionAttributeDesignator DataType="http://www.w3.org/2001/XMLSchema#anyURI"
+					AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id"/>
+				</ActionMatch>
+			</Action>
+			<Action>
+				<ActionMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:anyURI-equal">
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#anyURI">
+						urn:e-health-suisse:2015:policy-administration:UpdatePolicy
+					</AttributeValue>
+					<ActionAttributeDesignator DataType="http://www.w3.org/2001/XMLSchema#anyURI"
+					AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id"/>
+				</ActionMatch>
+			</Action>
+			<Action>
+				<ActionMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:anyURI-equal">
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#anyURI">
+						urn:e-health-suisse:2015:policy-administration:DeletePolicy
+					</AttributeValue>
+					<ActionAttributeDesignator DataType="http://www.w3.org/2001/XMLSchema#anyURI"
+					AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id"/>
+				</ActionMatch>
+			</Action>
+		</Actions>
+	</Target>
+	<Rule Effect="Permit" RuleId="d4c9267b-1927-4bd3-acc0-c05c3ae1c02d"/>
+</Policy>

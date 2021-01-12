@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+********************************************************
+Implementation material for Privacy Policy Format
+
+History:
+2018-11-29: Second edition
+
+********************************************************
+-->
+<PolicySet
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:hl7="urn:hl7-org:v3"
+	xmlns="urn:oasis:names:tc:xacml:2.0:policy:schema:os"
+	PolicyCombiningAlgId="urn:oasis:names:tc:xacml:1.0:policy-combining-algorithm:deny-overrides"
+	PolicySetId="urn:e-health-suisse:2015:policies:access-level:normal">
+	<Description>
+		Base PolicySet 101 - definition of access level normal
+		This template must not be modified!
+	</Description>
+	<Target/>
+	<PolicyIdReference>
+		urn:e-health-suisse:2015:policies:permit-reading-normal
+	</PolicyIdReference>
+	<PolicyIdReference>
+		urn:e-health-suisse:2015:policies:update-metadata
+	</PolicyIdReference>
+</PolicySet>

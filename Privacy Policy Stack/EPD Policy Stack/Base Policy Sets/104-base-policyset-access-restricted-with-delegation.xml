@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+********************************************************
+Implementation material for Privacy Policy Format
+
+History:
+2018-07-03: second edition
+
+********************************************************
+-->
+<PolicySet
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:hl7="urn:hl7-org:v3"
+	xmlns="urn:oasis:names:tc:xacml:2.0:policy:schema:os"
+	PolicySetId="urn:e-health-suisse:2015:policies:access-level:delegation-and-restricted"
+	PolicyCombiningAlgId="urn:oasis:names:tc:xacml:1.0:policy-combining-algorithm:deny-overrides">
+	<Description>
+		Base PolicySet 104 - definition of access level restricted with delegation.
+		This template must not be modified!
+	</Description>
+	<Target/>
+	<PolicySetIdReference>
+		urn:e-health-suisse:2015:policies:access-level:restricted
+	</PolicySetIdReference>
+	<Policy
+		PolicyId="urn:e-health-suisse:2015:policies:delegation-up-to-restricted"
+		RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:deny-overrides">
+		<Target/>
+		<Rule Effect="Permit" RuleId="0cf3f586-3155-4280-bfa6-0534f4b4c59d">
+			<Description>
+				A user with delegation rights is allowed to forward access rights not exceeding her/his own
+			</Description>
+			<Target>
+				<Actions>
+					<Action>
+						<ActionMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:anyURI-equal">
+							<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#anyURI">
+								urn:e-health-suisse:2015:policy-administration:AddPolicy
+							</AttributeValue>
+							<ActionAttributeDesignator DataType="http://www.w3.org/2001/XMLSchema#anyURI"
+							AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id"/>
+						</ActionMatch>
+					</Action>
+					<Action>
+						<ActionMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:anyURI-equal">
+							<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#anyURI">
+								urn:e-health-suisse:2015:policy-administration:UpdatePolicy
+							</AttributeValue>
+							<ActionAttributeDesignator DataType="http://www.w3.org/2001/XMLSchema#anyURI"
+							AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id"/>
+						</ActionMatch>
+					</Action>
+				</Actions>
+			</Target>
+			<Condition>
+				<!-- ensure that there is one policySet referenced and it is for normal or restricted access levels -->
+				<Apply FunctionId="urn:oasis:names:tc:xacml:2.0:function:anyURI-regexp-match">
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
+						(urn:e-health-suisse:2015:policies:access-level:)(normal|restricted).*
+					</AttributeValue>
+					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:anyURI-one-and-only">
+						<ResourceAttributeDesignator
+							DataType="http://www.w3.org/2001/XMLSchema#anyURI"
+						AttributeId="urn:e-health-suisse:2015:policy-attributes:referenced-policy-set" />
+					</Apply>
+				</Apply>
+			</Condition>
+		</Rule>
+		<Rule Effect="Permit" RuleId="bf341fac-918f-4795-a8cf-ed8af8eb0724">
+			<Description>
+				A user with delegation rights shall be allowed to read, update and delete policies
+			</Description>
+			<Target>
+				<Actions>
+					<Action>
+						<ActionMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:anyURI-equal">
+							<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#anyURI">
+								urn:e-health-suisse:2015:policy-administration:PolicyQuery
+							</AttributeValue>
+							<ActionAttributeDesignator DataType="http://www.w3.org/2001/XMLSchema#anyURI"
+							AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id"/>
+						</ActionMatch>
+					</Action>
+					<Action>
+						<ActionMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:anyURI-equal">
+							<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#anyURI">
+								urn:e-health-suisse:2015:policy-administration:DeletePolicy
+							</AttributeValue>
+							<ActionAttributeDesignator DataType="http://www.w3.org/2001/XMLSchema#anyURI"
+							AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id"/>
+						</ActionMatch>
+					</Action>
+				</Actions>
+			</Target>
+		</Rule>
+	</Policy>
+</PolicySet>
