@@ -5,6 +5,7 @@ Implementation material for Privacy Policy Format
 
 History:
 2019-03-26: second edition
+2021-06-25: third edition
 
 ********************************************************
 -->
@@ -26,7 +27,16 @@ History:
 						urn:ihe:iti:2010:UpdateDocumentSet
 					</AttributeValue>
 					<ActionAttributeDesignator DataType="http://www.w3.org/2001/XMLSchema#anyURI"
-					AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id"/>
+								   AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id"/>
+				</ActionMatch>
+			</Action>
+			<Action>
+				<ActionMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:anyURI-equal">
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#anyURI">
+						urn:ihe:iti:2018:RestrictedUpdateDocumentSet
+					</AttributeValue>
+					<ActionAttributeDesignator DataType="http://www.w3.org/2001/XMLSchema#anyURI"
+								   AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id"/>
 				</ActionMatch>
 			</Action>
 		</Actions>
