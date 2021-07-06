@@ -63,7 +63,7 @@ History:
 		</Resources>
 	</Target>
 	<PolicySetIdReference>
-		urn:e-health-suisse:2015:policies:access-level:normal
-		<!--urn:e-health-suisse:2015:policies:access-level:restricted-->
+		urn:e-health-suisse:2015:policies:emergency-access-level:normal
+		<!--urn:e-health-suisse:2015:policies:emergency-access-level:restricted-->
 	</PolicySetIdReference>
 </PolicySet>
