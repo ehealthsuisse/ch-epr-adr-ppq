@@ -6,6 +6,7 @@ These rules shall be applied after XSD-based validation.
 
 History:
 07-Jun-2021: Initial version (Dmytro Rud, Swiss Post)
+07-Jul-2021: Fix of ResourceMatch validation (Dmytro Rud, Swiss Post)
 -->
 <sch:schema queryBinding="xslt2"
             xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -337,7 +338,7 @@ History:
                 fn:false())"/>
         <xsl:variable name="identifier" select="$element/xacml:AttributeValue/hl7:InstanceIdentifier"/>
         <xsl:variable name="b2" select="($identifier/@root eq '2.16.756.5.30.1.127.3.10.3') and val:is-epr-spid($identifier/@extension)"/>
-        <xsl:sequence select="$b2 and $b2"/>
+        <xsl:sequence select="$b1 and $b2"/>
     </xsl:function>
 
 
@@ -462,7 +463,7 @@ History:
                               (not(fn:contains($policyRef, 'delegation')) or $toDates)"/>
     </xsl:function>
 
-    <!-- Returns true iff the given combination of Subject, EnvironmentMatch and PolicySetIdReference suits for the policy template 301 -->
+    <!-- Returns true iff the given combination of Subject, EnvironmentMatch and PolicySetIdReference suits for the policy template 302 -->
     <xsl:function name="val:is-template-302-combination" as="xs:boolean">
         <xsl:param name="subjects"/>
         <xsl:param name="envMatches"/>
