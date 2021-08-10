@@ -6,6 +6,7 @@ Implementation material for Privacy Policy Format
 History:
 2019-03-26: fourth edition
 2021-06-07: fifth edition
+2021-08-10: sixth edition
 
 ********************************************************
 -->
@@ -45,6 +46,12 @@ History:
 		urn:e-health-suisse:2015:policies:permit-reading-patient-audit
 	</PolicyIdReference>
 	<PolicyIdReference>
-		urn:e-health-suisse:2015:policies:update-metadata
+		urn:e-health-suisse:2015:policies:update-metadata-normal
+	</PolicyIdReference>
+	<PolicyIdReference>
+		urn:e-health-suisse:2015:policies:update-metadata-restricted
+	</PolicyIdReference>
+	<PolicyIdReference>
+		urn:e-health-suisse:2015:policies:update-metadata-secret
 	</PolicyIdReference>
 </PolicySet>

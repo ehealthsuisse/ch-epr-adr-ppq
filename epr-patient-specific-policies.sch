@@ -7,6 +7,7 @@ These rules shall be applied after XSD-based validation.
 History:
 07-Jun-2021: Initial version (Dmytro Rud, Swiss Post)
 07-Jul-2021: Fix of ResourceMatch validation (Dmytro Rud, Swiss Post)
+20-Jul-2021: Check that policy set IDs are UUIDs in URN format (Dmytro Rud, Swiss Post)
 -->
 <sch:schema queryBinding="xslt2"
             xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -48,6 +49,9 @@ History:
         <sch:rule context="/*[(local-name() eq 'AddPolicyRequest') or (local-name() eq 'UpdatePolicyRequest')]/saml:Assertion/saml:Statement/xacml:PolicySet">
             <sch:assert test="@PolicyCombiningAlgId eq 'urn:oasis:names:tc:xacml:1.0:policy-combining-algorithm:deny-overrides'">
                 Attribute 'PolicyCombiningAlgId' must equal to 'urn:oasis:names:tc:xacml:1.0:policy-combining-algorithm:deny-overrides'
+            </sch:assert>
+            <sch:assert test="val:is-uuid-urn(@PolicySetId)">
+                Attribute 'PolicySetId' must be a UUID in URN format
             </sch:assert>
 
             <!-- I. Validate element Environment -->
@@ -161,6 +165,12 @@ History:
     <xsl:function name="val:is-oid-urn" as="xs:boolean">
         <xsl:param name="value" as="xs:string"/>
         <xsl:sequence select="fn:matches(fn:normalize-space($value), '^urn:oid:([0-2])((\.0)|(\.[1-9][0-9]*))*$', 'i')"/>
+    </xsl:function>
+
+    <!-- Returns true iff the given string represents an UUID in URN format -->
+    <xsl:function name="val:is-uuid-urn" as="xs:boolean">
+        <xsl:param name="value" as="xs:string"/>
+        <xsl:sequence select="fn:matches(fn:normalize-space($value), '^urn:uuid:[0-9a-f]{8}\-[0-9a-f]{4}\-[0-9a-f]{4}\-[0-9a-f]{4}\-[0-9a-f]{12}$', 'i')"/>
     </xsl:function>
 
     <!-- Returns true iff the given string represents an EPR-SPID -->
