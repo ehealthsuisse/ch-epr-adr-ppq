@@ -5,7 +5,8 @@ Implementation material for Privacy Policy Format
 
 History:
 2021-02-02: third edition
-2021-67-67: forth edition
+2021-67-67: fourth edition
+2021-08-10: fifth edition
 
 ********************************************************
 -->
@@ -41,6 +42,9 @@ History:
 		urn:e-health-suisse:2015:policies:permit-reading-restricted
 	</PolicyIdReference>
 	<PolicyIdReference>
-		urn:e-health-suisse:2015:policies:update-metadata
+		urn:e-health-suisse:2015:policies:update-metadata-normal
+	</PolicyIdReference>
+	<PolicyIdReference>
+		urn:e-health-suisse:2015:policies:update-metadata-restricted
 	</PolicyIdReference>
 </PolicySet>
