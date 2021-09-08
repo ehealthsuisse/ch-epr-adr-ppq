@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns12:XACMLAuthzDecisionQuery InputContextOnly="false" ReturnContext="false" ID="_c6e76282-7736-4cd9-a272-5a073d0de9f9" Version="2.0" IssueInstant="2021-09-04T23:46:45.917Z" xmlns="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:ns6="http://www.w3.org/2004/08/xop/include" xmlns:ns5="http://www.w3.org/2001/04/xmlenc#" xmlns:ns8="urn:oasis:names:tc:SAML:2.0:conditions:delegation" xmlns:ns7="urn:e-health-suisse:2015:policy-administration" xmlns:ns9="urn:oasis:names:tc:xacml:2.0:profile:saml2.0:v2:schema:assertion" xmlns:ns12="urn:oasis:names:tc:xacml:2.0:profile:saml2.0:v2:schema:protocol" xmlns:ns11="urn:oasis:names:tc:SAML:2.0:protocol" xmlns:ns10="urn:hl7-org:v3" xmlns:ns2="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:ns4="http://www.w3.org/2000/09/xmldsig#" xmlns:ns3="urn:oasis:names:tc:SAML:2.0:assertion">
+    <Request>
+        <Subject>
+            <Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string">
+                <AttributeValue>7600000000000</AttributeValue>
+            </Attribute>
+            <Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id-qualifier" DataType="http://www.w3.org/2001/XMLSchema#string">
+                <AttributeValue>urn:gs1:gln</AttributeValue>
+            </Attribute>
+            <Attribute AttributeId="urn:ihe:iti:xca:2010:homeCommunityId" DataType="http://www.w3.org/2001/XMLSchema#anyURI">
+                <AttributeValue>urn:oid:1.2.3.4.5.6.7</AttributeValue>
+            </Attribute>
+            <Attribute AttributeId="urn:oasis:names:tc:xacml:2.0:subject:role" DataType="urn:hl7-org:v3#CV">
+                <AttributeValue>
+                    <ns10:CodedValue code="HCP" codeSystem="2.16.756.5.30.1.127.3.10.6" displayName="Healthcare Professional"/>
+                </AttributeValue>
+            </Attribute>
+            <Attribute AttributeId="urn:oasis:names:tc:xspa:1.0:subject:organization-id" DataType="http://www.w3.org/2001/XMLSchema#anyURI">
+                <AttributeValue>urn:oid:1.2.3</AttributeValue>
+                <AttributeValue>urn:oid:1.2.4</AttributeValue>
+                <AttributeValue>urn:oid:1.2.5</AttributeValue>
+            </Attribute>
+            <Attribute AttributeId="urn:oasis:names:tc:xspa:1.0:subject:purposeofuse" DataType="urn:hl7-org:v3#CV">
+                <AttributeValue>
+                    <ns10:CodedValue code="NORM" codeSystem="2.16.756.5.30.1.127.3.10.5" displayName="Normal"/>
+                </AttributeValue>
+            </Attribute>
+        </Subject>
+        <Resource>
+            <Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" DataType="http://www.w3.org/2001/XMLSchema#anyURI">
+                <AttributeValue>urn:uuid:7c619ed0-6bb4-4381-bba4-44a223016df7</AttributeValue>
+            </Attribute>
+            <Attribute AttributeId="urn:e-health-suisse:2015:epr-spid" DataType="urn:hl7-org:v3#II">
+                <AttributeValue>
+                    <ns10:InstanceIdentifier root="2.16.756.5.30.1.127.3.10.3" extension="765000000000000000"/>
+                </AttributeValue>
+            </Attribute>
+            <Attribute AttributeId="urn:e-health-suisse:2015:policy-attributes:referenced-policy-set" DataType="http://www.w3.org/2001/XMLSchema#anyURI">
+                <AttributeValue>does not matter</AttributeValue>
+            </Attribute>
+        </Resource>
+        <Resource>
+            <Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" DataType="http://www.w3.org/2001/XMLSchema#anyURI">
+                <AttributeValue>urn:uuid:b0ca170e-8d55-4a12-bbb6-cbc4057e8a7a</AttributeValue>
+            </Attribute>
+            <Attribute AttributeId="urn:e-health-suisse:2015:epr-spid" DataType="urn:hl7-org:v3#II">
+                <AttributeValue>
+                    <ns10:InstanceIdentifier root="2.16.756.5.30.1.127.3.10.3" extension="765000000000000000"/>
+                </AttributeValue>
+            </Attribute>
+            <Attribute AttributeId="urn:e-health-suisse:2015:policy-attributes:referenced-policy-set" DataType="http://www.w3.org/2001/XMLSchema#anyURI">
+                <AttributeValue>does not matter</AttributeValue>
+            </Attribute>
+        </Resource>
+        <Resource>
+            <Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" DataType="http://www.w3.org/2001/XMLSchema#anyURI">
+                <AttributeValue>urn:uuid:76c4ca61-5e75-4e19-84b4-caac9ba11885</AttributeValue>
+            </Attribute>
+            <Attribute AttributeId="urn:e-health-suisse:2015:epr-spid" DataType="urn:hl7-org:v3#II">
+                <AttributeValue>
+                    <ns10:InstanceIdentifier root="2.16.756.5.30.1.127.3.10.3" extension="765000000000000000"/>
+                </AttributeValue>
+            </Attribute>
+            <Attribute AttributeId="urn:e-health-suisse:2015:policy-attributes:referenced-policy-set" DataType="http://www.w3.org/2001/XMLSchema#anyURI">
+                <AttributeValue>does not matter</AttributeValue>
+            </Attribute>
+        </Resource>
+        <Action>
+            <Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#anyURI">
+                <AttributeValue>urn:e-health-suisse:2015:policy-administration:DeletePolicy</AttributeValue>
+            </Attribute>
+        </Action>
+        <Environment/>
+    </Request>
+</ns12:XACMLAuthzDecisionQuery>
