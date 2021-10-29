@@ -33,7 +33,13 @@ History:
 		</Subjects>
 	</Target>
 	<PolicyIdReference>
-		urn:e-health-suisse:2015:policies:update-metadata
+		urn:e-health-suisse:2015:policies:update-metadata-normal
+	</PolicyIdReference>
+	<PolicyIdReference>
+		urn:e-health-suisse:2015:policies:update-metadata-restricted
+	</PolicyIdReference>
+	<PolicyIdReference>
+		urn:e-health-suisse:2015:policies:update-metadata-secret
 	</PolicyIdReference>
 	<PolicyIdReference>
 		urn:e-health-suisse:2015:policies:permit-reading-normal
