@@ -1,14 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-********************************************************
-HL7v3 Abstract Data Type Specification - ANSI/HL7 V3 DT, R1-2004 3/19/2012
-Original file comes from: ftp://ftp.ihe.net/TF_Implementation_Material/ITI/schema/IHE/APPC/ihe-appc-xacml-hl7-datatypes-base-1.0.xsd
-
-History:
-2017-02-15: First edition
-
-********************************************************
--->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:v3" targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified">
 	<xs:annotation>
 		<xs:documentation>XML Schema Reimplementation of a subset of the Abstract Data Type Specification of HL7v3 (ANSI/HL7 V3 DT,
@@ -16,9 +6,14 @@ History:
 			InterComponentWare AG. Limited to the data types needed to express a patient's privacy consent directive using XACML,
 			as specified in the IHE Advanced Patient Privacy Consent (APPC) Profile. The standard v3 XML schemas are to complex for easy
 			integration, therefore we created this subset.
+			
+			Source: https://drive.google.com/drive/folders/13FCw8IJliiVdQFt4bBEmCPW93E5x710R
+
+			Modifications for Swiss EPR:
+			- 18-Oct-2021: Added data type CE (Dmytro Rud, Swiss Post)
 		</xs:documentation>
 	</xs:annotation>
-	<!-- elment name definitions -->
+	<!-- element name definitions -->
 	<xs:element name="CodedValue" type="CV"/>
 	<xs:element name="InstanceIdentifier" type="II"/>
 	<!-- type definitions -->
@@ -31,6 +26,11 @@ History:
 		<xs:attribute name="codeSystemName" type="xs:string" use="optional"/>
 		<xs:attribute name="codeSystemVersion" type="xs:string" use="optional"/>
 		<xs:attribute name="displayName" type="xs:string" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="CE">
+		<xs:complexContent>
+			<xs:extension base="CV"/>
+		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="II">
 		<xs:attribute name="root" type="uid" use="required"/>
