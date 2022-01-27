@@ -33,7 +33,9 @@ History:
 					AttributeId="urn:oasis:names:tc:xacml:2.0:subject:role" />
 				</SubjectMatch>
 				<SubjectMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">urn:gs1:gln</AttributeValue>
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
+						urn:gs1:gln
+					</AttributeValue>
 					<SubjectAttributeDesignator
 						AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id-qualifier"
 					DataType="http://www.w3.org/2001/XMLSchema#string" />
