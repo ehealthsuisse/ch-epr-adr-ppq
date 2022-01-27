@@ -8,6 +8,8 @@ History:
 07-Jun-2021: Initial version (Dmytro Rud, Swiss Post)
 07-Jul-2021: Fix of ResourceMatch validation (Dmytro Rud, Swiss Post)
 20-Jul-2021: Check that policy set IDs are UUIDs in URN format (Dmytro Rud, Swiss Post)
+01-Dec-2021: Do not trim whitespace in attribute values (Dmytro Rud, Swiss Post)
+05-Jan-2022: Fix possible referenced policies in template 202 (Dmytro Rud, Swiss Post)
 -->
 <sch:schema queryBinding="xslt2"
             xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -23,7 +25,7 @@ History:
     <sch:ns prefix="xsi"    uri="http://www.w3.org/2001/XMLSchema-instance"/>
 
     <!-- if this parameter is set to true, then the validation will fail if the to-date in EnvironmentMatch is less than the current date -->
-    <sch:let name="need-check-current-date" value="fn:true()"/>
+    <sch:let name="need-check-current-date" value="fn:false()"/>
 
     <sch:pattern id="pattern1">
 
@@ -164,25 +166,25 @@ History:
     <!-- Returns true iff the given string represents an OID in URN format -->
     <xsl:function name="val:is-oid-urn" as="xs:boolean">
         <xsl:param name="value" as="xs:string"/>
-        <xsl:sequence select="fn:matches(fn:normalize-space($value), '^urn:oid:([0-2])((\.0)|(\.[1-9][0-9]*))*$', 'i')"/>
+        <xsl:sequence select="fn:matches($value, '^urn:oid:([0-2])((\.0)|(\.[1-9][0-9]*))*$', 'i')"/>
     </xsl:function>
 
     <!-- Returns true iff the given string represents an UUID in URN format -->
     <xsl:function name="val:is-uuid-urn" as="xs:boolean">
         <xsl:param name="value" as="xs:string"/>
-        <xsl:sequence select="fn:matches(fn:normalize-space($value), '^urn:uuid:[0-9a-f]{8}\-[0-9a-f]{4}\-[0-9a-f]{4}\-[0-9a-f]{4}\-[0-9a-f]{12}$', 'i')"/>
+        <xsl:sequence select="fn:matches($value, '^urn:uuid:[0-9a-f]{8}\-[0-9a-f]{4}\-[0-9a-f]{4}\-[0-9a-f]{4}\-[0-9a-f]{12}$', 'i')"/>
     </xsl:function>
 
     <!-- Returns true iff the given string represents an EPR-SPID -->
     <xsl:function name="val:is-epr-spid" as="xs:boolean">
         <xsl:param name="value" as="xs:string"/>
-        <xsl:sequence select="fn:matches(fn:normalize-space($value), '^\d{18}$')"/>
+        <xsl:sequence select="fn:matches($value, '^\d{18}$')"/>
     </xsl:function>
 
     <!-- Returns true iff the given string represents a GLN -->
     <xsl:function name="val:is-gln" as="xs:boolean">
         <xsl:param name="value" as="xs:string"/>
-        <xsl:sequence select="fn:matches(fn:normalize-space($value), '^\d{13}$')"/>
+        <xsl:sequence select="fn:matches($value, '^\d{13}$')"/>
     </xsl:function>
 
     <!-- Returns true iff the given string represents an ID of a REP -->
@@ -194,7 +196,7 @@ History:
     <!-- Returns the attribute value of the given SubjectMatch element, as string -->
     <xsl:function name="val:attribute-value-text" as="xs:string">
         <xsl:param name="element"/>
-        <xsl:sequence select="fn:normalize-space($element/xacml:AttributeValue/text())"/>
+        <xsl:sequence select="$element/xacml:AttributeValue/text()"/>
     </xsl:function>
 
     <!-- Returns true iff the given element is a designator with the given attribute ID and data type -->
@@ -437,8 +439,8 @@ History:
         <xsl:param name="policyRef"/>
         <xsl:sequence select="(fn:count($subjects) eq 1) and
                               (fn:count($subjects[val:is-template-202-subject(.)]) eq 1) and
-                              (($policyRef eq 'urn:e-health-suisse:2015:policies:access-level:normal') or
-                               ($policyRef eq 'urn:e-health-suisse:2015:policies:access-level:restricted')) and
+                              (($policyRef eq 'urn:e-health-suisse:2015:policies:emergency-access-level:normal') or
+                               ($policyRef eq 'urn:e-health-suisse:2015:policies:emergency-access-level:restricted')) and
                               (not($envMatches))"/>
     </xsl:function>
 
