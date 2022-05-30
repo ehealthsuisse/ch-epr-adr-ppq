@@ -7,6 +7,7 @@ History:
 2018-07-03: First edition
 2021-07-06: Second edition
 2021-12-13: Third edition
+2022-05-23: fourth edition
 
 ********************************************************
 -->
@@ -33,9 +34,7 @@ History:
 					AttributeId="urn:oasis:names:tc:xacml:2.0:subject:role" />
 				</SubjectMatch>
 				<SubjectMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
-						urn:gs1:gln
-					</AttributeValue>
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">urn:gs1:gln</AttributeValue>
 					<SubjectAttributeDesignator
 						AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id-qualifier"
 					DataType="http://www.w3.org/2001/XMLSchema#string" />
@@ -65,7 +64,7 @@ History:
 		</Resources>
 	</Target>
 	<PolicySetIdReference>
-		urn:e-health-suisse:2015:policies:emergency-access-level:normal
-		<!--urn:e-health-suisse:2015:policies:emergency-access-level:restricted-->
+		urn:e-health-suisse:2015:policies:access-level:normal
+		<!--urn:e-health-suisse:2015:policies:access-level:restricted-->
 	</PolicySetIdReference>
 </PolicySet>
