@@ -8,6 +8,7 @@ History:
 2021-06-07: fourth edition
 2021-08-10: fifth edition
 2022-05-23: sixth edition
+2023-02-01: seventh edition
 
 ********************************************************
 -->
@@ -23,10 +24,6 @@ History:
 		This template must not be modified!
 	</Description>
 	<Target/>
-	<PolicyIdReference>
-		urn:e-health-suisse:2015:policies:permit-reading-normal
-	</PolicyIdReference>
-	<PolicyIdReference>
-		urn:e-health-suisse:2015:policies:update-metadata-normal
-	</PolicyIdReference>
+	<PolicyIdReference>urn:e-health-suisse:2015:policies:permit-reading-normal</PolicyIdReference>
+	<PolicyIdReference>urn:e-health-suisse:2015:policies:update-metadata-normal</PolicyIdReference>
 </PolicySet>
