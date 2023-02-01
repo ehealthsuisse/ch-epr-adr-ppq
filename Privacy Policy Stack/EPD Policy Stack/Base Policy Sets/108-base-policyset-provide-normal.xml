@@ -5,6 +5,7 @@ Implementation material for Privacy Policy Format
 
 History:
 2017-02-15: First edition
+2023-02-01: Second edition
 
 ********************************************************
 -->
@@ -22,10 +23,6 @@ History:
 		This template must not be modified!
 	</Description>
 	<Target/>
-	<PolicyIdReference>
-		urn:e-health-suisse:2015:policies:permit-writing-normal
-	</PolicyIdReference>
-	<PolicyIdReference>
-		urn:e-health-suisse:2015:policies:permit-writing-restricted
-	</PolicyIdReference>
+	<PolicyIdReference>urn:e-health-suisse:2015:policies:permit-writing-normal</PolicyIdReference>
+	<PolicyIdReference>urn:e-health-suisse:2015:policies:permit-writing-restricted</PolicyIdReference>
 </PolicySet>
