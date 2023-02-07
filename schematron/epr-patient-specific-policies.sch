@@ -10,7 +10,9 @@ History:
 20-Jul-2021: Check that policy set IDs are UUIDs in URN format (Dmytro Rud, Swiss Post)
 01-Dec-2021: Do not trim whitespace in attribute values (Dmytro Rud, Swiss Post)
 05-Jan-2022: Fix possible referenced policies in template 202 (Dmytro Rud, Swiss Post)
+09-Jan-2022: Consider changes in template 203 due to EPDREL-21 (Dmytro Rud, Swiss Post)
 23-May-2022: Revert previous change because the template change was reverted (Dmytro Rud, ahdis)
+
 -->
 <sch:schema queryBinding="xslt2"
             xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -451,9 +453,10 @@ History:
         <xsl:param name="envMatches"/>
         <xsl:param name="toDates"/>
         <xsl:param name="policyRef"/>
-        <xsl:sequence select="(fn:count($subjects) eq 2) and
+        <xsl:sequence select="(fn:count($subjects) eq 3) and
                               (fn:count($subjects[val:is-template-203-subject(., 'NORM')]) eq 1) and
                               (fn:count($subjects[val:is-template-203-subject(., 'AUTO')]) eq 1) and
+                              (fn:count($subjects[val:is-template-203-subject(., 'DICOM_AUTO')]) eq 1) and
                               (($policyRef eq 'urn:e-health-suisse:2015:policies:provide-level:normal') or
                                ($policyRef eq 'urn:e-health-suisse:2015:policies:provide-level:restricted') or
                                ($policyRef eq 'urn:e-health-suisse:2015:policies:provide-level:secret')) and
