@@ -67,6 +67,5 @@ History:
 	<PolicySetIdReference>urn:e-health-suisse:2015:policies:access-level:normal</PolicySetIdReference>
 	<!--
 	urn:e-health-suisse:2015:policies:access-level:restricted;
-	urn:e-health-suisse:2015:policies:exclusion-list;
 	-->
 </PolicySet>
