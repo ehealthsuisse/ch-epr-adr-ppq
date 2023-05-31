@@ -11,6 +11,7 @@ History:
 01-Dec-2021: Do not trim whitespace in attribute values (Dmytro Rud, Swiss Post)
 05-Jan-2022: Fix possible referenced policies in template 202 (Dmytro Rud, Swiss Post)
 09-Jan-2022: Consider changes in template 203 due to EPDREL-21 (Dmytro Rud, Swiss Post)
+27-Mar-2023: Consider the split of the template 301 into 301+304 (Dmytro Rud, adesso)
 29-Mar-2023: Do not allow exclusion list for groups in template 302 (Dmytro Rud, adesso)
 
 -->
@@ -65,61 +66,59 @@ History:
             </sch:assert>
 
             <sch:let name="envMatches" value="xacml:Target/xacml:Environments/xacml:Environment/xacml:EnvironmentMatch"/>
-            <sch:let name="fromDates"  value="$envMatches[val:is-date-restriction-environment-match(., 'urn:oasis:names:tc:xacml:1.0:function:date-less-than-or-equal')]"/>
-            <sch:let name="toDates"    value="$envMatches[val:is-date-restriction-environment-match(., 'urn:oasis:names:tc:xacml:1.0:function:date-greater-than-or-equal')]"/>
+            <sch:let name="fromDate"   value="$envMatches[val:is-date-restriction-environment-match(., 'urn:oasis:names:tc:xacml:1.0:function:date-less-than-or-equal')]"/>
+            <sch:let name="toDate"     value="$envMatches[val:is-date-restriction-environment-match(., 'urn:oasis:names:tc:xacml:1.0:function:date-greater-than-or-equal')]"/>
 
-            <sch:assert test="fn:count($fromDates) le 1">
+            <sch:assert test="fn:count($fromDate) le 1">
                 At most one from-date is allowed
             </sch:assert>
-            <sch:assert test="fn:count($toDates) le 1">
+            <sch:assert test="fn:count($toDate) le 1">
                 At most one to-date is allowed
             </sch:assert>
-            <sch:assert test="fn:count($fromDates) + fn:count($toDates) eq fn:count($envMatches)">
+            <sch:assert test="fn:count($fromDate) + fn:count($toDate) eq fn:count($envMatches)">
                 Element 'EnvironmentMatch' can define only from-date and/or to-date
             </sch:assert>
 
-            <sch:assert test="(not($need-check-current-date)) or (not($toDates)) or (xs:date(val:attribute-value-text($toDates)) ge fn:current-date())">
+            <sch:assert test="(not($need-check-current-date)) or (not($toDate)) or (xs:date(val:attribute-value-text($toDate)) ge fn:current-date())">
                 To-date must be equal to or greater than the current date
             </sch:assert>
-            <sch:assert test="(not($fromDates and $toDates)) or (xs:date(val:attribute-value-text($toDates)) ge xs:date(val:attribute-value-text($fromDates)))">
+            <sch:assert test="(not($fromDate and $toDate)) or (xs:date(val:attribute-value-text($toDate)) ge xs:date(val:attribute-value-text($fromDate)))">
                 To-date must be equal to or greater than the from-date
             </sch:assert>
 
 
-            <!-- II. Validate combination of elements Subject, 'EnvironmentMatch' and 'PolicySetIdReference' -->
+            <!-- II. Validate combination of elements Subject, ResourceMatch, EnvironmentMatch and PolicySetIdReference -->
             <sch:assert test="fn:count(xacml:PolicySetIdReference) eq 1">
                 Exactly one element 'PolicySetIdReference' must be present
             </sch:assert>
-
-            <sch:let name="policyRef" value="fn:normalize-space(xacml:PolicySetIdReference/text())"/>
-            <sch:let name="subjects" value="xacml:Target/xacml:Subjects/xacml:Subject"/>
-
-            <sch:assert test="val:is-template-201-combination($subjects, $envMatches, $toDates, $policyRef) or
-                              val:is-template-202-combination($subjects, $envMatches, $toDates, $policyRef) or
-                              val:is-template-203-combination($subjects, $envMatches, $toDates, $policyRef) or
-                              val:is-template-301-combination($subjects, $envMatches, $toDates, $policyRef) or
-                              val:is-template-302-combination($subjects, $envMatches, $toDates, $policyRef) or
-                              val:is-template-303-combination($subjects, $envMatches, $toDates, $policyRef)">
-                The provided combination of elements 'Subject', 'EnvironmentMatch' and 'PolicySetIdReference'
-                does not correspond to any official policy template (201, 202, 203, 301, 302, 303)
-            </sch:assert>
-
-
-            <!-- III. Validate element Resource (patient reference) -->
             <sch:assert test="fn:count(xacml:Target/xacml:Resources/xacml:Resource) eq 1">
                 Exactly one element 'Resource' must be present
             </sch:assert>
 
+            <sch:let name="policyRef" value="fn:normalize-space(xacml:PolicySetIdReference/text())"/>
+            <sch:let name="subjects" value="xacml:Target/xacml:Subjects/xacml:Subject"/>
             <sch:let name="resourceMatches" value="xacml:Target/xacml:Resources/xacml:Resource/xacml:ResourceMatch"/>
-            <sch:assert test="fn:count($resourceMatches) eq 1">
-                Exactly one element 'ResourceMatch' must be present
-            </sch:assert>
-            <sch:assert test="fn:count($resourceMatches[val:is-pat-id-resource-match(.)]) eq 1">
-                Structure and/or contents of the element 'ResourceMatch' do not correspond to the official policy templates
+
+            <sch:assert test="val:is-template-201-combination($subjects, $resourceMatches, $policyRef, $envMatches) or
+                              val:is-template-202-combination($subjects, $resourceMatches, $policyRef, $envMatches) or
+                              val:is-template-203-combination($subjects, $resourceMatches, $policyRef, $envMatches) or
+                              val:is-template-301-combination($subjects, $resourceMatches, $policyRef) or
+                              val:is-template-302-combination($subjects, $resourceMatches, $policyRef, $toDate) or
+                              val:is-template-303-combination($subjects, $resourceMatches, $policyRef) or
+                              val:is-template-304-combination($subjects, $resourceMatches, $policyRef, $fromDate, $toDate)">
+                The provided combination of elements 'Subject', 'Resource', 'Environment' and 'PolicySetIdReference'
+                does not correspond to any official policy template (201, 202, 203, 301, 302, 303, 304)
             </sch:assert>
 
-            <sch:let name="eprSpidSubject" value="$subjects/xacml:SubjectMatch[val:is-pat-id-subject-match(.)]"/>
-            <sch:assert test="(not($eprSpidSubject)) or (val:attribute-value-text($eprSpidSubject) eq $resourceMatches/xacml:AttributeValue/hl7:InstanceIdentifier/@extension)">
+
+            <!-- III. Validate that the elements Subject and Resource reference the same patient -->
+            <sch:let name="eprSpidResourceMatch" value="$resourceMatches[val:is-pat-id-resource-match(.)]"/>
+            <sch:assert test="fn:count($eprSpidResourceMatch) eq 1">
+                Exactly one element 'ResourceMatch' must carry the EPR-SPID of the patient
+            </sch:assert>
+
+            <sch:let name="eprSpidSubjectMatch" value="$subjects/xacml:SubjectMatch[val:is-pat-id-subject-match(.)]"/>
+            <sch:assert test="(not($eprSpidSubjectMatch)) or (val:attribute-value-text($eprSpidSubjectMatch) eq $eprSpidResourceMatch/xacml:AttributeValue/hl7:InstanceIdentifier/@extension)">
                 EPR-SPIDs in the elements 'SubjectMatch' and 'ResourceMatch' must be equal
             </sch:assert>
 
@@ -172,7 +171,7 @@ History:
         <xsl:sequence select="fn:matches($value, '^urn:oid:([0-2])((\.0)|(\.[1-9][0-9]*))*$', 'i')"/>
     </xsl:function>
 
-    <!-- Returns true iff the given string represents an UUID in URN format -->
+    <!-- Returns true iff the given string represents a UUID in URN format -->
     <xsl:function name="val:is-uuid-urn" as="xs:boolean">
         <xsl:param name="value" as="xs:string"/>
         <xsl:sequence select="fn:matches($value, '^urn:uuid:[0-9a-f]{8}\-[0-9a-f]{4}\-[0-9a-f]{4}\-[0-9a-f]{4}\-[0-9a-f]{12}$', 'i')"/>
@@ -356,6 +355,24 @@ History:
         <xsl:sequence select="$b1 and $b2"/>
     </xsl:function>
 
+    <!-- Returns true iff the given ResourceMatch element is related to a given date -->
+    <xsl:function name="val:is-date-resource-match" as="xs:boolean">
+        <xsl:param name="element"/>
+        <xsl:param name="comparator"/>
+        <xsl:param name="attributeId"/>
+        <xsl:param name="evnMatch"/>
+        <xsl:variable name="b1" select="val:is-given-match(
+                $element,
+                'ResourceAttributeDesignator',
+                $comparator,
+                $attributeId,
+                'http://www.w3.org/2001/XMLSchema#date',
+                fn:true())"/>
+        <xsl:variable name="b2" select="val:attribute-value-text($element) eq val:attribute-value-text($evnMatch)"/>
+        <xsl:sequence select="(not($evnMatch) and not($b1)) or
+                              ($evnMatch and $b1 and $b2)"/>
+    </xsl:function>
+
 
     <!-- ==================== Functions for validation of Subject and SubjectMatches elements ==================== -->
 
@@ -419,17 +436,57 @@ History:
                               (fn:count($subjectMatches[val:is-subject-role-subject-match(., 'REP')]) eq 1)"/>
     </xsl:function>
 
+    <!-- Returns true iff the given Subject element suits for the policy template 304 -->
+    <xsl:function name="val:is-template-304-subject" as="xs:boolean">
+        <xsl:param name="subject"/>
+        <xsl:variable name="subjectMatches" select="$subject/xacml:SubjectMatch"/>
+        <xsl:sequence select="(fn:count($subjectMatches) eq 3) and
+                              (fn:count($subjectMatches[val:is-hcp-id-subject-match(.)]) eq 1) and
+                              (fn:count($subjectMatches[val:is-subject-id-qualifier-subject-match(., 'urn:gs1:gln')]) eq 1) and
+                              (fn:count($subjectMatches[val:is-subject-role-subject-match(., 'HCP')]) eq 1)"/>
+    </xsl:function>
+
+
+    <!-- ==================== Functions for validation of Resource elements ==================== -->
+
+    <!-- Returns true iff the given Resource element suits all policy templates excluding 304 -->
+    <xsl:function name="val:is-common-resource-matches" as="xs:boolean">
+        <xsl:param name="resourceMatches"/>
+        <xsl:sequence select="fn:count($resourceMatches) eq 1"/>
+    </xsl:function>
+
+    <!-- Returns true iff the given Resource element suits the policy template 304 -->
+    <xsl:function name="val:is-template-304-resource-matches" as="xs:boolean">
+        <xsl:param name="resourceMatches"/>
+        <xsl:param name="fromDate"/>
+        <xsl:param name="toDate"/>
+        <xsl:variable name="fromDateResourceMatches" select="$resourceMatches[val:is-date-resource-match(
+                .,
+                'urn:oasis:names:tc:xacml:1.0:function:date-less-than-or-equal',
+                'urn:e-health-suisse:2023:policy-attributes:start-date',
+                $fromDate)]"/>
+        <xsl:variable name="toDateResourceMatches" select="$resourceMatches[val:is-date-resource-match(
+                .,
+                'urn:oasis:names:tc:xacml:1.0:function:date-greater-than-or-equal',
+                'urn:e-health-suisse:2023:policy-attributes:end-date',
+                $toDate)]"/>
+        <xsl:sequence select="(fn:count($resourceMatches)         eq (if ($fromDate) then 3 else 2)) and
+                              (fn:count($fromDateResourceMatches) eq (if ($fromDate) then 1 else 2)) and
+                              (fn:count($toDateResourceMatches)   eq 1)"/>
+    </xsl:function>
+
 
     <!-- ==================== Functions for validation of template-specific element combinations ==================== -->
 
     <!-- Returns true iff the given combination of Subject, EnvironmentMatch and PolicySetIdReference suits for the policy template 201 -->
     <xsl:function name="val:is-template-201-combination" as="xs:boolean">
         <xsl:param name="subjects"/>
-        <xsl:param name="envMatches"/>
-        <xsl:param name="toDates"/>
+        <xsl:param name="resourceMatches"/>
         <xsl:param name="policyRef"/>
+        <xsl:param name="envMatches"/>
         <xsl:sequence select="(fn:count($subjects) eq 1) and
                               (fn:count($subjects[val:is-template-201-subject(.)]) eq 1) and
+                              val:is-common-resource-matches($resourceMatches) and
                               ($policyRef eq 'urn:e-health-suisse:2015:policies:access-level:full') and
                               (not($envMatches))"/>
     </xsl:function>
@@ -437,11 +494,12 @@ History:
     <!-- Returns true iff the given combination of Subject, EnvironmentMatch and PolicySetIdReference suits for the policy template 202 -->
     <xsl:function name="val:is-template-202-combination" as="xs:boolean">
         <xsl:param name="subjects"/>
-        <xsl:param name="envMatches"/>
-        <xsl:param name="toDates"/>
+        <xsl:param name="resourceMatches"/>
         <xsl:param name="policyRef"/>
+        <xsl:param name="envMatches"/>
         <xsl:sequence select="(fn:count($subjects) eq 1) and
                               (fn:count($subjects[val:is-template-202-subject(.)]) eq 1) and
+                              val:is-common-resource-matches($resourceMatches) and
                               (($policyRef eq 'urn:e-health-suisse:2015:policies:access-level:normal') or
                                ($policyRef eq 'urn:e-health-suisse:2015:policies:access-level:restricted')) and
                               (not($envMatches))"/>
@@ -450,13 +508,14 @@ History:
     <!-- Returns true iff the given combination of Subject, EnvironmentMatch and PolicySetIdReference suits for the policy template 203 -->
     <xsl:function name="val:is-template-203-combination" as="xs:boolean">
         <xsl:param name="subjects"/>
-        <xsl:param name="envMatches"/>
-        <xsl:param name="toDates"/>
+        <xsl:param name="resourceMatches"/>
         <xsl:param name="policyRef"/>
+        <xsl:param name="envMatches"/>
         <xsl:sequence select="(fn:count($subjects) eq 3) and
                               (fn:count($subjects[val:is-template-203-subject(., 'NORM')]) eq 1) and
                               (fn:count($subjects[val:is-template-203-subject(., 'AUTO')]) eq 1) and
                               (fn:count($subjects[val:is-template-203-subject(., 'DICOM_AUTO')]) eq 1) and
+                              val:is-common-resource-matches($resourceMatches) and
                               (($policyRef eq 'urn:e-health-suisse:2015:policies:provide-level:normal') or
                                ($policyRef eq 'urn:e-health-suisse:2015:policies:provide-level:restricted') or
                                ($policyRef eq 'urn:e-health-suisse:2015:policies:provide-level:secret')) and
@@ -466,41 +525,54 @@ History:
     <!-- Returns true iff the given combination of Subject, EnvironmentMatch and PolicySetIdReference suits for the policy template 301 -->
     <xsl:function name="val:is-template-301-combination" as="xs:boolean">
         <xsl:param name="subjects"/>
-        <xsl:param name="envMatches"/>
-        <xsl:param name="toDates"/>
+        <xsl:param name="resourceMatches"/>
         <xsl:param name="policyRef"/>
         <xsl:sequence select="(fn:count($subjects) eq 1) and
                               (fn:count($subjects[val:is-template-301-subject(.)]) eq 1) and
+                              val:is-common-resource-matches($resourceMatches) and
                               (($policyRef eq 'urn:e-health-suisse:2015:policies:exclusion-list') or
                                ($policyRef eq 'urn:e-health-suisse:2015:policies:access-level:normal') or
-                               ($policyRef eq 'urn:e-health-suisse:2015:policies:access-level:restricted') or
-                               ($policyRef eq 'urn:e-health-suisse:2015:policies:access-level:delegation-and-normal') or
-                               ($policyRef eq 'urn:e-health-suisse:2015:policies:access-level:delegation-and-restricted')) and
-                              (not(fn:contains($policyRef, 'delegation')) or $toDates)"/>
+                               ($policyRef eq 'urn:e-health-suisse:2015:policies:access-level:restricted'))"/>
     </xsl:function>
 
     <!-- Returns true iff the given combination of Subject, EnvironmentMatch and PolicySetIdReference suits for the policy template 302 -->
     <xsl:function name="val:is-template-302-combination" as="xs:boolean">
         <xsl:param name="subjects"/>
-        <xsl:param name="envMatches"/>
-        <xsl:param name="toDates"/>
+        <xsl:param name="resourceMatches"/>
         <xsl:param name="policyRef"/>
+        <xsl:param name="toDate"/>
         <xsl:sequence select="(fn:count($subjects) eq 1) and
                               (fn:count($subjects[val:is-template-302-subject(.)]) eq 1) and
+                              val:is-common-resource-matches($resourceMatches) and
                               (($policyRef eq 'urn:e-health-suisse:2015:policies:access-level:normal') or
                                ($policyRef eq 'urn:e-health-suisse:2015:policies:access-level:restricted')) and
-                              $toDates"/>
+                              $toDate"/>
     </xsl:function>
 
     <!-- Returns true iff the given combination of Subject, EnvironmentMatch and PolicySetIdReference suits for the policy template 303 -->
     <xsl:function name="val:is-template-303-combination" as="xs:boolean">
         <xsl:param name="subjects"/>
-        <xsl:param name="envMatches"/>
-        <xsl:param name="toDates"/>
+        <xsl:param name="resourceMatches"/>
         <xsl:param name="policyRef"/>
         <xsl:sequence select="(fn:count($subjects) eq 1) and
                               (fn:count($subjects[val:is-template-303-subject(.)]) eq 1) and
+                              val:is-common-resource-matches($resourceMatches) and
                               ($policyRef eq 'urn:e-health-suisse:2015:policies:access-level:full')"/>
+    </xsl:function>
+
+    <!-- Returns true iff the given combination of Subject, EnvironmentMatch and PolicySetIdReference suits for the policy template 304 -->
+    <xsl:function name="val:is-template-304-combination" as="xs:boolean">
+        <xsl:param name="subjects"/>
+        <xsl:param name="resourceMatches"/>
+        <xsl:param name="policyRef"/>
+        <xsl:param name="fromDate"/>
+        <xsl:param name="toDate"/>
+        <xsl:sequence select="(fn:count($subjects) eq 1) and
+                              (fn:count($subjects[val:is-template-304-subject(.)]) eq 1) and
+                              $toDate and
+                              val:is-template-304-resource-matches($resourceMatches, $fromDate, $toDate) and
+                              (($policyRef eq 'urn:e-health-suisse:2015:policies:access-level:delegation-and-normal') or
+                               ($policyRef eq 'urn:e-health-suisse:2015:policies:access-level:delegation-and-restricted'))"/>
     </xsl:function>
 
 </sch:schema>
