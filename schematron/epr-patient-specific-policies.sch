@@ -11,7 +11,7 @@ History:
 01-Dec-2021: Do not trim whitespace in attribute values (Dmytro Rud, Swiss Post)
 05-Jan-2022: Fix possible referenced policies in template 202 (Dmytro Rud, Swiss Post)
 09-Jan-2022: Consider changes in template 203 due to EPDREL-21 (Dmytro Rud, Swiss Post)
-23-May-2022: Revert previous change because the template change was reverted (Dmytro Rud, ahdis)
+29-Mar-2023: Do not allow exclusion list for groups in template 302 (Dmytro Rud, adesso)
 
 -->
 <sch:schema queryBinding="xslt2"
@@ -116,7 +116,7 @@ History:
             </sch:assert>
             <sch:assert test="fn:count($resourceMatches[val:is-pat-id-resource-match(.)]) eq 1">
                 Structure and/or contents of the element 'ResourceMatch' do not correspond to the official policy templates
-            </sch:assert>>
+            </sch:assert>
 
             <sch:let name="eprSpidSubject" value="$subjects/xacml:SubjectMatch[val:is-pat-id-subject-match(.)]"/>
             <sch:assert test="(not($eprSpidSubject)) or (val:attribute-value-text($eprSpidSubject) eq $resourceMatches/xacml:AttributeValue/hl7:InstanceIdentifier/@extension)">
@@ -487,8 +487,7 @@ History:
         <xsl:param name="policyRef"/>
         <xsl:sequence select="(fn:count($subjects) eq 1) and
                               (fn:count($subjects[val:is-template-302-subject(.)]) eq 1) and
-                              (($policyRef eq 'urn:e-health-suisse:2015:policies:exclusion-list') or
-                               ($policyRef eq 'urn:e-health-suisse:2015:policies:access-level:normal') or
+                              (($policyRef eq 'urn:e-health-suisse:2015:policies:access-level:normal') or
                                ($policyRef eq 'urn:e-health-suisse:2015:policies:access-level:restricted')) and
                               $toDates"/>
     </xsl:function>

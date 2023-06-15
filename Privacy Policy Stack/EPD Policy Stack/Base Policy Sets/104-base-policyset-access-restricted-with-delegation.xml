@@ -6,6 +6,7 @@ Implementation material for Privacy Policy Format
 History:
 2018-07-03: second edition
 2023-02-01: third edition
+2023-03-27: fourth edition
 
 ********************************************************
 -->
@@ -50,7 +51,7 @@ History:
 			<Condition>
 				<!-- ensure that there is one policySet referenced and it is for normal or restricted access levels -->
 				<Apply FunctionId="urn:oasis:names:tc:xacml:2.0:function:anyURI-regexp-match">
-					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">(urn:e-health-suisse:2015:policies:access-level:)(normal|restricted).*</AttributeValue>
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">(urn:e-health-suisse:2015:policies:access-level:)(normal|restricted)</AttributeValue>
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:anyURI-one-and-only">
 						<ResourceAttributeDesignator
 							DataType="http://www.w3.org/2001/XMLSchema#anyURI"
