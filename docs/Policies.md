@@ -1,6 +1,6 @@
 # Official EPR Policy Stack
 
-*Author: [Dmytro Rud](mailto:dmytro.rud@gmail.com), last change: 09-Aug-2023.*
+*Author: [Dmytro Rud](mailto:dmytro.rud@gmail.com), last change: 16-Aug-2023.*
 
 According to chapter 4 of amendment 2.1 of annex 5 [EPRO-FDHA](https://www.fedlex.admin.ch/eli/oc/2023/221/de/annexes),
 the official EPR [policy stack](https://github.com/ehealthsuisse/ch-epr-adr-ppq/tree/main/Privacy%20Policy%20Stack)
@@ -139,12 +139,14 @@ who has an ID "761384759483458721" of the type "EPR-SPID":
 
 <xacml:Subject>
     <xacml:SubjectMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-        <xacml:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">761384759483458721</xacml:AttributeValue>
+        <xacml:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">761384759483458721
+        </xacml:AttributeValue>
         <xacml:SubjectAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id"
                                           DataType="http://www.w3.org/2001/XMLSchema#string"/>
     </xacml:SubjectMatch>
     <xacml:SubjectMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-        <xacml:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">urn:e-health-suisse:2015:epr-spid</xacml:AttributeValue>
+        <xacml:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">urn:e-health-suisse:2015:epr-spid
+        </xacml:AttributeValue>
         <xacml:SubjectAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id-qualifier"
                                           DataType="http://www.w3.org/2001/XMLSchema#string"/>
     </xacml:SubjectMatch>
@@ -167,7 +169,7 @@ in a shortened form, without the common prefix `urn:e-health-suisse:2015:policie
 ![Relations among EPR base policies, base policy sets, policy set templates, and user-defined policy sets generated from
 these templates](policies.png)
 
-Detailed descriptions of the elements of the EPR Official Policy Stack will be provided in tables in the subsequent
+Detailed descriptions of the elements of the EPR Official Policy Stack will be provided in the subsequent
 sections. Target constraints of policies and policy sets will be represented as lists of allowed
 document confidentiality codes, purposes of use, and user roles.
 
@@ -178,25 +180,117 @@ The following notational conventions apply:
 * If a policy set references multiple policies or policy sets simultaneously, their IDs are separated by commas.
 * If a policy set references a single policy or policy set from a list of alternatives, their IDs are separated by "or".
 * If the target constraints of a policy set vary depending on which policies or policy sets it references, the syntax
-  "ID of the referenced policy or policy set 🡒 resulting value" is used, e.g. "102 🡒 NORMAL".
-* Like on the picture above, IDs of base policies and base policy sets are given in a shortened form.
+  "ID of the referenced policy or policy set 🡒 resulting value" is used, e.g. "102 🡒 `NORMAL`".
 
-### 2.1. Base Policies
+### 2.1. Base policies
 
-| ID | File name                                     | Policy ID                    | Effect                                           | Allowed document confidentiality code(s) | Allowed purpose(s) of use | Allowed user role(s)       | 
-|----|-----------------------------------------------|------------------------------|--------------------------------------------------|------------------------------------------|---------------------------|----------------------------|
-| 01 | 01-base-policy-read-normal.xml                | permit-reading-normal        | Permit to enquire document metadata and contents | NORMAL                                   | NORM, EMER                | All excluding TCU (note 1) |
-| 02 | 02-base-policy-read-restricted.xml            | permit-reading-restricted    | Permit to enquire document metadata and contents | RESTRICTED                               | NORM, EMER                | All excluding TCU (note 1) |
-| 03 | 03-base-policy-read-secret.xml                | permit-reading-secret        | Permit to enquire document metadata and contents | SECRET                                   | NORM, EMER                | All excluding TCU (note 1) |
-| 04 | 04-base-policy-write-normal.xml               | permit-writing-normal        | Permit to submit documents                       | NORMAL                                   | *                         | *                          |
-| 05 | 05-base-policy-write-restricted.xml           | permit-writing-restricted    | Permit to submit documents                       | RESTRICTED                               | *                         | *                          | 
-| 06 | 06-base-policy-write-secret.xml               | permit-writing-secret        | Permit to submit documents                       | SECRET                                   | *                         | *                          |
-| 07 | 07-base-policy-policy-full.xml                | full-policy-administration   | Permit to manage privacy policies                | *                                        | *                         | *                          |
-| 08 | 08-base-policy-deny-all.xml                   | deny-all                     | Deny all operations                              | n/a                                      | n/a                       | n/a                        |
-| 09 | 09-base-policy-read-patient-audit.xml         | permit-reading-patient-audit | Permit to enquire patient-related audit records  | *                                        | *                         | *                          |
-| 10 | 10-base-policy-update-metadata-normal.xml     | update-metadata-normal       | Permit to modify document metadata               | NORMAL                                   | NORM                      | All excluding TCU (note 1) |
-| 11 | 11-base-policy-update-metadata-restricted.xml | update-metadata-restricted   | Permit to modify document metadata               | RESTRICTED                               | NORM                      | All excluding TCU (note 1) |
-| 12 | 12-base-policy-update-metadata-secret.xml     | update-metadata-secret       | Permit to modify document metadata               | SECRET                                   | NORM                      | All excluding TCU (note 1) |
+**Base policy 01:**
+
+- File name: 01-base-policy-read-normal.xml
+- Policy ID: `urn:e-health-suisse:2015:policies:permit-reading-normal`
+- Effect: Permit to enquire document metadata and content
+- Allowed document confidentiality code(s): `NORMAL`
+- Allowed purpose(s) of use: `NORM`, `EMER`
+- Allowed user role(s): All excluding `TCU` (note 1)
+
+**Base policy 02:**
+
+- File name: 02-base-policy-read-restricted.xml
+- Policy ID: `urn:e-health-suisse:2015:policies:permit-reading-restricted`
+- Effect: Permit to enquire document metadata and contents
+- Allowed document confidentiality code(s): `RESTRICTED`
+- Allowed purpose(s) of use: `NORM`, `EMER`
+- Allowed user role(s): All excluding `TCU` (note 1)
+
+**Base policy 03:**
+
+- File name: 03-base-policy-read-secret.xml
+- Policy ID: `urn:e-health-suisse:2015:policies:permit-reading-secret`
+- Effect: Permit to enquire document metadata and contents
+- Allowed document confidentiality code(s): `SECRET`
+- Allowed purpose(s) of use: `NORM`, `EMER`
+- Allowed user role(s): All excluding `TCU` (note 1)
+
+**Base policy 04:**
+
+- File name: 04-base-policy-write-normal.xml
+- Policy ID: `urn:e-health-suisse:2015:policies:permit-writing-normal`
+- Effect: Permit to submit documents
+- Allowed document confidentiality code(s): `NORMAL`
+- Allowed purpose(s) of use: `*`
+- Allowed user role(s): `*`
+
+**Base policy 05:**
+
+- File name: 05-base-policy-write-restricted.xml
+- Policy ID: `urn:e-health-suisse:2015:policies:permit-writing-restricted`
+- Effect: Permit to submit documents
+- Allowed document confidentiality code(s): `RESTRICTED`
+- Allowed purpose(s) of use: `*`
+- Allowed user role(s): `*`
+
+**Base policy 06:**
+
+- File name: 06-base-policy-write-secret.xml
+- Policy ID: `urn:e-health-suisse:2015:policies:permit-writing-secret`
+- Effect: Permit to submit documents
+- Allowed document confidentiality code(s): `SECRET`
+- Allowed purpose(s) of use: `*`
+- Allowed user role(s): `*`
+
+**Base policy 07:**
+
+- File name: 07-base-policy-policy-full.xml
+- Policy ID: `urn:e-health-suisse:2015:policies:full-policy-administration`
+- Effect: Permit to manage privacy policies
+- Allowed document confidentiality code(s): n/a
+- Allowed purpose(s) of use: `*`
+- Allowed user role(s): `*`
+
+**Base policy 08:**
+
+- File name: 08-base-policy-deny-all.xml
+- Policy ID: `urn:e-health-suisse:2015:policies:deny-all`
+- Effect: Deny all operations
+- Allowed document confidentiality code(s): n/a
+- Allowed purpose(s) of use: n/a
+- Allowed user role(s): n/a
+
+**Base policy 09:**
+
+- File name: 09-base-policy-read-patient-audit.xml
+- Policy ID: `urn:e-health-suisse:2015:policies:permit-reading-patient-audit`
+- Effect: Permit to enquire patient-related audit records
+- Allowed document confidentiality code(s): n/a
+- Allowed purpose(s) of use: `*`
+- Allowed user role(s): `*`
+
+**Base policy 10:**
+
+- File name: 10-base-policy-update-metadata-normal.xml
+- Policy ID: `urn:e-health-suisse:2015:policies:update-metadata-normal`
+- Effect: Permit to modify document metadata
+- Allowed document confidentiality code(s): `NORMAL`
+- Allowed purpose(s) of use: `NORM`
+- Allowed user role(s): All excluding `TCU` (note 1)
+
+**Base policy 11:**
+
+- File name: 11-base-policy-update-metadata-restricted.xml
+- Policy ID: `urn:e-health-suisse:2015:policies:update-metadata-restricted`
+- Effect: Permit to modify document metadata
+- Allowed document confidentiality code(s): `RESTRICTED`
+- Allowed purpose(s) of use: `NORM`
+- Allowed user role(s): All excluding `TCU` (note 1)
+
+**Base policy 12:**
+
+- File name: 12-base-policy-update-metadata-secret.xml
+- Policy ID: `urn:e-health-suisse:2015:policies:update-metadata-secret`
+- Effect: Permit to modify document metadata
+- Allowed document confidentiality code(s): `SECRET`
+- Allowed purpose(s) of use: `NORM`
+- Allowed user role(s): All excluding `TCU` (note 1)
 
 Notes:
 
@@ -205,27 +299,169 @@ Notes:
 
 ### 2.2. Base policy sets
 
-| ID  | File name                                                | Policy Set ID                            | Referenced policies / policy sets          | Effect of referenced policies / policy sets                                                                                    | Locally defined additional effect                                                                                                 | Allowed document confidentiality code(s) | Allowed purpose(s) of use | Allowed user role(s) |
-|-----|----------------------------------------------------------|------------------------------------------|--------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|------------------------------------------|---------------------------|----------------------|
-| 101 | 101-base-policyset-access-normal.xml                     | access-level:normal                      | 01, 10                                     | Permit to enquire document metadata and contents, and to modify document metadata                                              | --                                                                                                                                | NORMAL                                   | NORM, EMER                | All excluding TCU    |
-| 102 | 102-base-policyset-access-restricted.xml                 | access-level:restricted                  | 01, 02, 10, 11                             | Permit to enquire document metadata and contents, and to modify document metadata                                              | --                                                                                                                                | NORMAL, RESTRICTED                       | NORM, EMER                | All excluding TCU    |
-| 103 | 103-base-policyset-access-normal-with-delegation.xml     | access-level:delegation-and-normal       | 101                                        | Permit to enquire document metadata and contents, to modify document metadata, and to delegate these permissions to other HCPs | Permit to enquire and delete any privacy policies, and to add and modify privacy policies granting the permissions defined in 101 | NORMAL                                   | NORM, EMER                | All excluding TCU    |                                                            
-| 104 | 104-base-policyset-access-restricted-with-delegation.xml | access-level:delegation-up-to-restricted | 102                                        | Permit to enquire document metadata and contents, to modify document metadata, and to delegate these permissions to other HCPs | Permit to enquire and delete any privacy policies, and to add and modify privacy policies granting the permissions defined in 102 | NORMAL, RESTRICTED                       | NORM, EMER                | All excluding TCU    |                                                            
-| 105 | 105-base-policyset-access-level-full.xml                 | access-level:full                        | 01, 02, 03, 04, 05, 06, 07, 09, 10, 11, 12 | Permit to perform all operations on all types of content                                                                       | --                                                                                                                                | *                                        | *                         | *                    | 
-| 106 | 106-base-policyset-exclusion-list.xml                    | exclusion-list                           | 08                                         | Deny all operations                                                                                                            | --                                                                                                                                | n/a                                      | n/a                       | n/a                  |                              
-| 107 | 107-base-policyset-provide-restricted.xml                | provide-level:restricted                 | 05                                         | Permit to submit documents with the confidentiality code RESTRICTED                                                            | --                                                                                                                                | RESTRICTED                               | *                         | *                    |                              
-| 108 | 108-base-policyset-provide-normal.xml                    | provide-level:normal                     | 04, 05                                     | Permit to submit documents with the confidentiality codes NORMAL and RESTRICTED                                                | --                                                                                                                                | NORMAL, RESTRICTED                       | *                         | *                    |                              
-| 109 | 109-base-policyset-provide-secret.xml                    | provide-level:secret                     | 06                                         | Permit to submit documents with the confidentiality code SECRET                                                                | --                                                                                                                                | SECRET                                   | *                         | *                    |                              
-| 110 | 110-base-policyset-policy-admin.xml                      | policy-bootstrap                         | 07                                         | Permit all operations on privacy policies                                                                                      | User role is restricted to PADM                                                                                                   | *                                        | *                         | PADM                 |                          
-| 111 | 111-base-policyset-doc-admin.xml                         | doc-admin                                | 01, 02, 03, 04, 05, 06, 10, 11, 12         | Permit to enquire document metadata and contents, and to modify document metadata                                              | User role is restricted to DADM                                                                                                   | *                                        | *                         | DADM                 |                          
+**Base policy set 101:**
+
+- File name: 101-base-policyset-access-normal.xml
+- Policy ID: `urn:e-health-suisse:2015:policies:access-level:normal`
+- Referenced policies / policy sets: 01, 10
+- Effect of referenced policies / policy sets: Permit to enquire document metadata and contents, and to modify document
+  metadata
+- Locally defined additional effect: --
+- Allowed document confidentiality code(s): `NORMAL`
+- Allowed purpose(s) of use: `NORM`, `EMER`
+- Allowed user role(s): All excluding `TCU`
+
+**Base policy set 102:**
+
+- File name: 102-base-policyset-access-restricted.xml
+- Policy ID: `urn:e-health-suisse:2015:policies:access-level:restricted`
+- Referenced policies / policy sets: 01, 02, 10, 11
+- Effect of referenced policies / policy sets: Permit to enquire document metadata and contents, and to modify document
+  metadata
+- Locally defined additional effect: --
+- Allowed document confidentiality code(s): `NORMAL`, `RESTRICTED`
+- Allowed purpose(s) of use: `NORM`, `EMER`
+- Allowed user role(s): All excluding `TCU`
+
+**Base policy set 103:**
+
+- File name: 103-base-policyset-access-normal-with-delegation.xml:
+- Policy ID: `urn:e-health-suisse:2015:policies:access-level:delegation-and-normal`
+- Referenced policies / policy sets: 101
+- Effect of referenced policies / policy sets: Permit to enquire document metadata and contents, to modify document
+  metadata, and to delegate these permissions to other HCPs
+- Locally defined additional effect: Permit to enquire and delete any privacy policies, and to add and modify privacy
+  policies granting the permissions defined in 101
+- Allowed document confidentiality code(s): `NORMAL`
+- Allowed purpose(s) of use: `NORM`, `EMER`
+- Allowed user role(s): All excluding `TCU`
+
+**Base policy set 104:**
+
+- File name: 104-base-policyset-access-restricted-with-delegation.xml:
+- Policy ID: `urn:e-health-suisse:2015:policies:access-level:delegation-up-to-restricted`
+- Referenced policies / policy sets: 102
+- Effect of referenced policies / policy sets: Permit to enquire document metadata and contents, to modify document
+  metadata, and to delegate these permissions to other HCPs
+- Locally defined additional effect: Permit to enquire and delete any privacy policies, and to add and modify privacy
+  policies granting the permissions defined in 102
+- Allowed document confidentiality code(s): `NORMAL`, `RESTRICTED`
+- Allowed purpose(s) of use: `NORM`, `EMER`
+- Allowed user role(s): All excluding `TCU`
+
+**Base policy set 105:**
+
+- File name: 105-base-policyset-access-level-full.xml:
+- Policy ID: `urn:e-health-suisse:2015:policies:access-level:full`
+- Referenced policies / policy sets: 01, 02, 03, 04, 05, 06, 07, 09, 10, 11, 12
+- Effect of referenced policies / policy sets: Permit to perform all operations on all types of content
+- Locally defined additional effect: --
+- Allowed document confidentiality code(s): `*`
+- Allowed purpose(s) of use: `*`
+- Allowed user role(s): `*`
+
+**Base policy set 106:**
+
+- File name: 106-base-policyset-exclusion-list.xml:
+- Policy ID: `urn:e-health-suisse:2015:policies:exclusion-list`
+- Referenced policies / policy sets: 08
+- Effect of referenced policies / policy sets: Deny all operations
+- Locally defined additional effect: --
+- Allowed document confidentiality code(s): n/a
+- Allowed purpose(s) of use: n/a
+- Allowed user role(s): n/a
+
+**Base policy set 107:**
+
+- File name: 107-base-policyset-provide-restricted.xml:
+- Policy ID: `urn:e-health-suisse:2015:policies:provide-level:restricted`
+- Referenced policies / policy sets: 05
+- Effect of referenced policies / policy sets: Permit to submit documents with the confidentiality code `RESTRICTED`
+- Locally defined additional effect: --
+- Allowed document confidentiality code(s): `RESTRICTED`
+- Allowed purpose(s) of use: `*`
+- Allowed user role(s): `*`
+
+**Base policy set 108:**
+
+- File name: 108-base-policyset-provide-normal.xml:
+- Policy ID: `urn:e-health-suisse:2015:policies:provide-level:normal`
+- Referenced policies / policy sets: 04, 05
+- Effect of referenced policies / policy sets: Permit to submit documents with the confidentiality codes `NORMAL`
+  and `RESTRICTED`
+- Locally defined additional effect: --
+- Allowed document confidentiality code(s): `NORMAL`, `RESTRICTED`
+- Allowed purpose(s) of use: `*`
+- Allowed user role(s): `*`
+
+**Base policy set 109:**
+
+- File name: 109-base-policyset-provide-secret.xml:
+- Policy ID: `urn:e-health-suisse:2015:policies:provide-level:secret`
+- Referenced policies / policy sets: 06
+- Effect of referenced policies / policy sets: Permit to submit documents with the confidentiality code `SECRET`
+- Locally defined additional effect: --
+- Allowed document confidentiality code(s): `SECRET`
+- Allowed purpose(s) of use: `*`
+- Allowed user role(s): `*`
+
+**Base policy set 110:**
+
+- File name: 110-base-policyset-policy-admin.xml:
+- Policy ID: `urn:e-health-suisse:2015:policies:policy-bootstrap`
+- Referenced policies / policy sets: 07
+- Effect of referenced policies / policy sets: Permit all operations on privacy policies
+- Locally defined additional effect: User role is restricted to `PADM`
+- Allowed document confidentiality code(s): `*`
+- Allowed purpose(s) of use: `*`
+- Allowed user role(s): `PADM`
+
+**Base policy set 111:**
+
+- File name: 111-base-policyset-doc-admin.xml:
+- Policy ID: `urn:e-health-suisse:2015:policies:doc-admin`
+- Referenced policies / policy sets: 01, 02, 03, 04, 05, 06, 10, 11, 12
+- Effect of referenced policies / policy sets: Permit to enquire document metadata and contents, and to modify document
+  metadata
+- Locally defined additional effect: User role is restricted to `DADM`
+- Allowed document confidentiality code(s): `*`
+- Allowed purpose(s) of use: `*`
+- Allowed user role(s): `DADM`
 
 ### 2.3. Templates for patient bootstrap policy sets
 
-| ID  | File name                     | Referenced policy sets | Effect                                                                                                                    | Allowed document confidentiality code(s)                                        | Allowed purpose(s) of use | Allowed user role(s) |
-|-----|-------------------------------|------------------------|---------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|---------------------------|----------------------|
-| 201 | 201-patient-full-access.xml   | 105                    | Permits the patient (note 2) to perform any operations on their EPR                                                       | *                                                                               | *                         | PAT                  |
-| 202 | 202-patient-access-level.xml  | 101 or 102             | Defines the highest confidentiality level of documents any healthcare professional (note 3) can enquire in emergency mode | 101 🡒 NORMAL <br/><br/> 102 🡒 NORMAL, RESTRICTED                              | EMER                      | HCP                  |
-| 203 | 203-patient-provide-level.xml | 107 or 108 or 109      | Defined the lowest  confidentiality level of documents being uploaded by any healthcare professional (note 3)             | 107 🡒 RESTRICTED <br/><br/> 108 🡒 NORMAL, RESTRICTED <br/><br/> 109 🡒 SECRET | NORM, AUTO, DICOM_AUTO    | HCP                  |
+**Policy set template 201:**
+
+- File name: 201-patient-full-access.xml
+- Referenced policy set(s): 105
+- Effect: Permits the patient (note 2) to perform any operations on their EPR
+- Allowed document confidentiality code(s): `*`
+- Allowed purpose(s) of use: `*`
+- Allowed user role(s): `PAT`
+
+**Policy set template 202:**
+
+- File name: 202-patient-access-level.xml
+- Referenced policy set(s): 101 or 102
+- Effect: Defines the highest confidentiality level of documents any healthcare professional (note 3) can enquire in
+  emergency mode
+- Allowed document confidentiality code(s):
+    - 101 🡒 `NORMAL`
+    - 102 🡒 `NORMAL`, `RESTRICTED`
+- Allowed purpose(s) of use: `EMER`
+- Allowed user role(s): `HCP`
+
+**Policy set template 203:**
+
+- File name: 203-patient-provide-level.xml
+- Referenced policy set(s): 107 or 108 or 109
+- Effect: Defined the lowest confidentiality level of documents being uploaded by any healthcare professional (note 3)
+- Allowed document confidentiality code(s):
+    - 107 🡒 `RESTRICTED`
+    - 108 🡒 `NORMAL`, `RESTRICTED`
+    - 109 🡒 `SECRET`
+- Allowed purpose(s) of use: `NORM`, `AUTO`, `DICOM_AUTO`
+- Allowed user role(s): `HCP`
 
 Notes:
 
@@ -237,12 +473,62 @@ Notes:
 
 ### 2.4. Templates for patient user assignment policy sets
 
-| ID                                              | File name                                                | Referenced policy sets                                                              | Effect                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Allowed document confidentiality code(s)                                           | Allowed purpose(s) of use | Allowed user role(s) | Time restriction                                          |
-|-------------------------------------------------|----------------------------------------------------------|-------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|---------------------------|----------------------|-----------------------------------------------------------|
-| 301                                             | 301-patient-user-assignment-template.xml                 | 101 or 102 or 103 or 104 or 106 <br/><br/> **(103 and 104 — only in Release 2023)** | 101, 102 🡒 Permit a healthcare professional (note 3) identified by the given GLN to enquire metadata and content of documents with the given confidentiality code(s). <br/><br/> 103, 104 🡒 Same as respectively 101 or 102, but additionally permit to delegate the same permissions to other healthcare professionals. <br/><br/> 106 🡒 Deny healthcare professional's access to the patient's EPR.  This has a priority over all other policies and policy sets. | 101, 103 🡒 NORMAL <br/><br/> 102, 104 🡒 NORMAL, RESTRICTED <br/><br/> 106 🡒 n/a | NORM, EMER                | HCP                  | 103, 104 🡒 required <br/><br/> 101, 102, 106 🡒 optional |
-| 302                                             | 302-patient-group-assignment-template.xml                | 101 or 102                                                                          | Permit a group of healthcare professionals (note 4) identified by the given OID to enquire metadata and content of documents with the given confidentiality code(s).                                                                                                                                                                                                                                                                                                   | 101 🡒 NORMAL <br/><br/> 102 🡒 NORMAL, RESTRICTED                                 | NORM, EMER                | HCP                  | required                                                  |
-| 303                                             | 303-patient-representative-assignment-template.xml       | 105                                                                                 | Permit a representative (note 5) to perform any operations on the patient's EPR.                                                                                                                                                                                                                                                                                                                                                                                       | *                                                                                  | *                         | REP                  | optional                                                  |
-| 304 <br/><br/> **(starting with Release 2024)** | 304-patient-user-assignment-with-delegation-template.xml | 103 or 104                                                                          | Same as respectively 101 or 102, but additionally permit to delegate the same permissions to other healthcare professionals during the permitted period of time.                                                                                                                                                                                                                                                                                                       | 103 🡒 NORMAL <br/><br/> 104 🡒 NORMAL, RESTRICTED                                 | NORM, EMER                | HCP                  | required                                                  |
+**Policy set template ID 301:**
+
+- File name: 301-patient-user-assignment-template.xml
+- Referenced policy sets: 101 or 102 or 103 or 104 or 106 **(103 and 104 — only in Release 2023)**
+- Effect:
+    - 101, 102 🡒 Permit a healthcare professional (note 3) identified by the given GLN to enquire metadata and
+      content of documents with the given confidentiality code(s).
+    - 103, 104 🡒 Same as respectively 101 or 102, but additionally permit to delegate the same permissions to other
+      healthcare professionals.
+    - 106 🡒 Deny healthcare professional's access to the patient's EPR. This has a priority over all other policies and
+      policy sets.
+- Allowed document confidentiality code(s):
+    - 101, 103 🡒 `NORMAL`
+    - 102, 104 🡒 `NORMAL`, `RESTRICTED`
+    - 106 🡒 n/a
+- Allowed purpose(s) of use: `NORM`, `EMER`
+- Allowed user role(s): `HCP`
+- Time restriction:
+    - 103, 104 🡒 required
+    - 101, 102, 106 🡒 optional
+
+**Policy set template ID 302:**
+
+- File name: 302-patient-group-assignment-template.xml
+- Referenced policy sets: 101 or 102
+- Effect: Permit a group of healthcare professionals (note 4) identified by the given OID to enquire metadata and
+  content of documents with the given confidentiality code(s).
+- Allowed document confidentiality code(s):
+    - 101 🡒 `NORMAL`
+    - 102 🡒 `NORMAL`, `RESTRICTED`
+- Allowed purpose(s) of use: `NORM`, `EMER`
+- Allowed user role(s): `HCP`
+- Time restriction: required
+
+**Policy set template ID 303:**
+
+- File name: 303-patient-representative-assignment-template.xml
+- Referenced policy sets: 105
+- Effect: Permit a representative (note 5) to perform any operations on the patient's EPR.
+- Allowed document confidentiality code(s): `*`
+- Allowed purpose(s) of use: `*`
+- Allowed user role(s): `REP`
+- Time restriction: optional
+
+**Policy set template ID 304 (starting with Release 2024):**
+
+- File name: 304-patient-user-assignment-with-delegation-template.xml
+- Referenced policy sets: 103 or 104
+- Effect: Same as respectively 101 or 102, but additionally permit to delegate the same permissions to other healthcare
+  professionals during the permitted period of time.
+- Allowed document confidentiality code(s):
+    - 103 🡒 `NORMAL`
+    - 104 🡒 `NORMAL`, `RESTRICTED`
+- Allowed purpose(s) of use: `NORM`, `EMER`
+- Allowed user role(s): `HCP`
+- Time restriction: required
 
 ## 3. Schematron script for validation of privacy policies
 
@@ -321,7 +607,8 @@ the sub-element `AttributeValue` of the given XML element. For example, for the 
 ```xml
 
 <xacml:SubjectMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-    <xacml:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">urn:e-health-suisse:2015:epr-spid</xacml:AttributeValue>
+    <xacml:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">urn:e-health-suisse:2015:epr-spid
+    </xacml:AttributeValue>
     <xacml:SubjectAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id-qualifier"
                                       DataType="http://www.w3.org/2001/XMLSchema#string"/>
 </xacml:SubjectMatch>
@@ -372,22 +659,104 @@ The most generic predicate is `is-given-match`. It returns `true` iff the given 
 * depending on whether the data type is simple (e.g. string) or complex (e.g. a code), zero or one sub-elements
   in the element `./AttributeValue`.
 
-All other `${Type}Match` predicates are derived from `is-given-match` as specified in the table below:
+All other `${Type}Match` predicates are derived from `is-given-match` as specified below:
 
-| Name                                                                 | Derived from               | Additional constraints                                                                                                                                                                                                                                                                                                                                          |                                                                                                                                                                                                                                                                                                                                                 
-|----------------------------------------------------------------------|----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `is-given-subject-match`                                             | `is-given-match`           | - Designator name is fixed to `SubjectAttributeDesignator`.                                                                                                                                                                                                                                                                                                     |
-| . `is-user-id-subject-match`                                         | `is-given-subject-match`   | - Comparator ID is fixed to `urn:oasis:names:tc:xacml:1.0:function:string-equal`.<br/>- Attribute ID is fixed to `urn:oasis:names:tc:xacml:1.0:subject:subject-id`.<br/>- Data type is fixed to `http://www.w3.org/2001/XMLSchema#string` (simple data type).                                                                                                   |
-| . . `is-hcp-id-subject-match`                                        | `is-user-id-subject-match` | - Expected attribute value must be a GLN.                                                                                                                                                                                                                                                                                                                       |
-| . . `is-pat-id-subject-match`                                        | `is-user-id-subject-match` | - Expected attribute value must be an EPR-SPID.                                                                                                                                                                                                                                                                                                                 |
-| . . `is-rep-id-subject-match`                                        | `is-user-id-subject-match` | - Expected attribute value must be a representative's ID.                                                                                                                                                                                                                                                                                                       |
-| . `is-group-id-subject-match`                                        | `is-given-subject-match`   | - Comparator ID is fixed to `urn:oasis:names:tc:xacml:1.0:function:anyURI-equal`.<br/>- Attribute ID is fixed to `urn:oasis:names:tc:xspa:1.0:subject:organization-id`.<br/>- Data type is fixed to `http://www.w3.org/2001/XMLSchema#anyURI` (simple data type).<br/>- Expected attribute value must be an OID in URN format.                                  |
-| . `is-subject-id-qualifier-subject-match`                            | `is-given-subject-match`   | - Comparator ID is fixed to `urn:oasis:names:tc:xacml:1.0:function:string-equal`.<br/>- Attribute ID is fixed to `urn:oasis:names:tc:xacml:1.0:subject:subject-id-qualifier`.<br/>- Data type is fixed to `http://www.w3.org/2001/XMLSchema#string` (simple data type). <br/>-Expected attribute value must match the predicate's parameter.                    |
-| . `is-subject-role-subject-match`                                    | `is-given-subject-match`   | - Comparator ID is fixed to `urn:hl7-org:v3:function:CV-equal`.<br/>- Attribute ID is fixed to `urn:oasis:names:tc:xacml:2.0:subject:role`.<br/>- Data type is fixed to `urn:hl7-org:v3#CV` (complex data type).<br/>- Expected attribute value (code) must match the predicate's parameter and have the coding system OID `2.16.756.5.30.1.127.3.10.6`.        |
-| . `is-purpose-of-use-subject-match`                                  | `is-given-subject-match`   | - Comparator ID is fixed to `urn:hl7-org:v3:function:CV-equal`.<br/>- Attribute ID is fixed to `urn:oasis:names:tc:xspa:1.0:subject:purposeofuse`.<br/>- Data type is fixed to `urn:hl7-org:v3#CV` (complex data type).<br/>- Expected attribute value (code) must match the predicate's parameter and have the coding system OID `2.16.756.5.30.1.127.3.10.5`. |
-| `is-date-restriction-environment-match`                              | `is-given-match`           | - Designator name is fixed to `EnvironmentAttributeDesignator`.<br/>- Attribute ID is fixed to `urn:oasis:names:tc:xacml:1.0:environment:current-date`.<br/>- Data type is fixed to `http://www.w3.org/2001/XMLSchema#date` (simple data type).                                                                                                                 |
-| `is-pat-id-resource-match`                                           | `is-given-match`           | - Designator name is fixed to `ResourceAttributeDesignator`.<br/>- Attribute ID is fixed to `urn:hl7-org:v3:function:II-equal`.<br/>-Data type is fixed to `urn:hl7-org:v3#II` (complex data type).<br/>- Expected attribute value (identifier) must be an EPR-SPID and have the assigning authority OID `2.16.756.5.30.1.127.3.10.3`.                          |
-| `is-date-resource-match` <br/><br/> **(starting with Release 2024)** | `is-given-match`           | - Designator name is fixed to `ResourceAttributeDesignator`.<br/>Data type is fixed to `http://www.w3.org/2001/XMLSchema#date` (simple data type).<br/>- Expected attribute value (date) must be the same as in the `EnvironmentMatch` element provided as the predicate's parameter.                                                                           |
+**Predicate `is-given-subject-match`:**
+
+- Derived from: `is-given-match`
+- Additional constraints:
+    - Designator name is fixed to `SubjectAttributeDesignator`.
+
+**Predicate `is-user-id-subject-match`:**
+
+- Derived from: `is-given-subject-match`
+- Additional constraints:
+    - Comparator ID is fixed to `urn:oasis:names:tc:xacml:1.0:function:string-equal`
+    - Attribute ID is fixed to `urn:oasis:names:tc:xacml:1.0:subject:subject-id`
+    - Data type is fixed to `http://www.w3.org/2001/XMLSchema#string` (simple data type)
+
+**Predicate `is-hcp-id-subject-match`:**
+
+- Derived from: `is-user-id-subject-match`
+- Additional constraints:
+    - Expected attribute value must be a GLN
+
+**Predicate `is-pat-id-subject-match`:**
+
+- Derived from: `is-user-id-subject-match`
+- Additional constraints:
+    - Expected attribute value must be an EPR-SPID
+
+**Predicate `is-rep-id-subject-match`:**
+
+- Derived from: `is-user-id-subject-match`
+- Additional constraints:
+    - Expected attribute value must be a representative's ID
+
+**Predicate `is-group-id-subject-match`:**
+
+- Derived from: `is-given-subject-match`
+- Additional constraints:
+    - Comparator ID is fixed to `urn:oasis:names:tc:xacml:1.0:function:anyURI-equal`
+    - Attribute ID is fixedto `urn:oasis:names:tc:xspa:1.0:subject:organization-id`
+    - Data type is fixed to `http://www.w3.org/2001/XMLSchema#anyURI` (simple data type)
+    - Expected attribute value must be an OID in URN format
+
+**Predicate `is-subject-id-qualifier-subject-match`:**
+
+- Derived from: `is-given-subject-match`
+- Additional constraints:
+    - Comparator ID is fixed to `urn:oasis:names:tc:xacml:1.0:function:string-equal`
+    - Attribute ID is fixed to `urn:oasis:names:tc:xacml:1.0:subject:subject-id-qualifier`
+    - Data type is fixed to `http://www.w3.org/2001/XMLSchema#string` (simple data type)
+    - Expected attribute value must match the predicate's parameter
+
+**Predicate `is-subject-role-subject-match`:**
+
+- Derived from: `is-given-subject-match`
+- Additional constraints:
+    - Comparator ID is fixed to `urn:hl7-org:v3:function:CV-equal`
+    - Attribute ID is fixed to `urn:oasis:names:tc:xacml:2.0:subject:role`
+    - Data type is fixed to `urn:hl7-org:v3#CV` (complex data type)
+    - Expected attribute value (code) must match the predicate's parameter and have the coding system
+      OID `2.16.756.5.30.1.127.3.10.6`
+
+**Predicate `is-purpose-of-use-subject-match`:**
+
+- Derived from: `is-given-subject-match`
+- Additional constraints:
+    - Comparator ID is fixed to `urn:hl7-org:v3:function:CV-equal`
+    - Attribute ID is fixed to `urn:oasis:names:tc:xspa:1.0:subject:purposeofuse`
+    - Data type is fixed to `urn:hl7-org:v3#CV` (complex data type)
+    - Expected attribute value (code) must match the predicate's parameter and have the coding system
+      OID `2.16.756.5.30.1.127.3.10.5`
+
+**Predicate `is-date-restriction-environment-match`:**
+
+- Derived from: `is-given-match`
+- Additional constraints:
+    - Designator name is fixed to `EnvironmentAttributeDesignator`
+    - Attribute ID is fixed to `urn:oasis:names:tc:xacml:1.0:environment:current-date`
+    - Data type is fixed to `http://www.w3.org/2001/XMLSchema#date` (simple data type)
+
+**Predicate `is-pat-id-resource-match`:**
+
+- Derived from: `is-given-match`
+- Additional constraints:
+    - Designator name is fixed to `ResourceAttributeDesignator`
+    - Attribute ID is fixed to `urn:hl7-org:v3:function:II-equal`
+    - Data type is fixed to `urn:hl7-org:v3#II` (complex data type)
+    - Expected attribute value (identifier) must be an EPR-SPID and have the assigning authority
+      OID `2.16.756.5.30.1.127.3.10.3`
+
+**Predicate `is-date-resource-match`(starting with Release 2024):**
+
+- Derived from: `is-given-match`
+- Additional constraints:
+    - Designator name is fixed to `ResourceAttributeDesignator`
+    - Data type is fixed to `http://www.w3.org/2001/XMLSchema#date` (simple data type)
+    - Expected attribute value (date) must be the same as in the `EnvironmentMatch` element provided as the predicate's
+      parameter                                                                          
 
 Each given XACML element `${Type}Match` can fulfill at most one non-abstract predicate.
 
