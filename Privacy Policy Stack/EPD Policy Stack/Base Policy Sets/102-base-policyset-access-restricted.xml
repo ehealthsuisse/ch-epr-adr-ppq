@@ -9,7 +9,6 @@ History:
 2021-08-10: fifth edition
 2022-05-23: sixth edition
 2023-02-01: seventh edition
-2024-07-04: eighth edition
 
 ********************************************************
 -->
@@ -26,6 +25,6 @@ History:
 	<Target/>
 	<PolicyIdReference>urn:e-health-suisse:2015:policies:permit-reading-normal</PolicyIdReference>
 	<PolicyIdReference>urn:e-health-suisse:2015:policies:permit-reading-restricted</PolicyIdReference>
-	<PolicyIdReference>urn:e-health-suisse:2015:policies:restricted-update-metadata-normal</PolicyIdReference>
-	<PolicyIdReference>urn:e-health-suisse:2015:policies:restricted-update-metadata-restricted</PolicyIdReference>
+	<PolicyIdReference>urn:e-health-suisse:2015:policies:update-metadata-normal</PolicyIdReference>
+	<PolicyIdReference>urn:e-health-suisse:2015:policies:update-metadata-restricted</PolicyIdReference>
 </PolicySet>

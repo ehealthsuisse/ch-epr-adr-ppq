@@ -1,6 +1,6 @@
 # Official EPR Policy Stack
 
-*Author: [Dmytro Rud](mailto:dmytro.rud@gmail.com), last change: 22-Sep-2024.*
+*Author: [Dmytro Rud](mailto:dmytro.rud@gmail.com), last change: 03-Nov-2024.*
 
 According to chapter 4 of amendment 2.1 of annex 5 [EPRO-FDHA](https://www.fedlex.admin.ch/eli/oc/2023/221/de/annexes),
 the official EPR [policy stack](https://github.com/ehealthsuisse/ch-epr-adr-ppq/tree/main/Privacy%20Policy%20Stack)

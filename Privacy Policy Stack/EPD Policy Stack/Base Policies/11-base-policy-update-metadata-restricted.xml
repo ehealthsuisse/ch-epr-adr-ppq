@@ -7,7 +7,6 @@ History:
 2021-08-10: first edition
 2022-05-23: second edition
 2023-02-01: third edition
-2024-07-04: fourth edition
 
 ********************************************************
 -->
@@ -46,6 +45,13 @@ History:
 					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#anyURI">urn:ihe:iti:2010:UpdateDocumentSet</AttributeValue>
 					<ActionAttributeDesignator DataType="http://www.w3.org/2001/XMLSchema#anyURI"
                                                AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id"/>
+				</ActionMatch>
+			</Action>
+			<Action>
+				<ActionMatch MatchId="urn:oasis:names:tc:xacml:1.0:function:anyURI-equal">
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#anyURI">urn:ihe:iti:2018:RestrictedUpdateDocumentSet</AttributeValue>
+					<ActionAttributeDesignator DataType="http://www.w3.org/2001/XMLSchema#anyURI"
+											   AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id"/>
 				</ActionMatch>
 			</Action>
 		</Actions>

@@ -107,7 +107,7 @@ The following notational conventions apply:
 
 - File name: 10-base-policy-update-metadata-normal.xml
 - Policy ID: `urn:e-health-suisse:2015:policies:update-metadata-normal`
-- Effect: Permit to modify document metadata **(starting from Release 2025 — only using ITI-57)**
+- Effect: Permit to modify document metadata
 - Allowed document confidentiality code(s): `NORMAL`
 - Allowed purpose(s) of use: `NORM`
 - Allowed user role(s): All excluding `TCU` (note 1)
@@ -116,7 +116,7 @@ The following notational conventions apply:
 
 - File name: 11-base-policy-update-metadata-restricted.xml
 - Policy ID: `urn:e-health-suisse:2015:policies:update-metadata-restricted`
-- Effect: Permit to modify document metadata **(starting from Release 2025 — only using ITI-57)**
+- Effect: Permit to modify document metadata
 - Allowed document confidentiality code(s): `RESTRICTED`
 - Allowed purpose(s) of use: `NORM`
 - Allowed user role(s): All excluding `TCU` (note 1)
@@ -125,34 +125,7 @@ The following notational conventions apply:
 
 - File name: 12-base-policy-update-metadata-secret.xml
 - Policy ID: `urn:e-health-suisse:2015:policies:update-metadata-secret`
-- Effect: Permit to modify document metadata **(starting from Release 2025 — only using ITI-57)**
-- Allowed document confidentiality code(s): `SECRET`
-- Allowed purpose(s) of use: `NORM`
-- Allowed user role(s): All excluding `TCU` (note 1)
-
-**Base policy 13 (starting from Release 2025):**
-
-- File name: 13-base-policy-restricted-update-metadata-normal.xml
-- Policy ID: `urn:e-health-suisse:2015:policies:restricted-update-metadata-normal`
-- Effect: Permit to modify document metadata using ITI-92
-- Allowed document confidentiality code(s): `SECRET`
-- Allowed purpose(s) of use: `NORM`
-- Allowed user role(s): All excluding `TCU` (note 1)
-
-**Base policy 14 (starting from Release 2025):**
-
-- File name: 14-base-policy-restricted-update-metadata-restricted.xml
-- Policy ID: `urn:e-health-suisse:2015:policies:restricted-update-metadata-restricted`
-- Effect: Permit to modify document metadata using ITI-92
-- Allowed document confidentiality code(s): `RESTRICTED`
-- Allowed purpose(s) of use: `NORM`
-- Allowed user role(s): All excluding `TCU` (note 1)
-
-**Base policy 15 (starting from Release 2025):**
-
-- File name: 13-base-policy-restricted-update-metadata-secret.xml
-- Policy ID: `urn:e-health-suisse:2015:policies:restricted-update-metadata-secret`
-- Effect: Permit to modify document metadata using ITI-92
+- Effect: Permit to modify document metadata
 - Allowed document confidentiality code(s): `SECRET`
 - Allowed purpose(s) of use: `NORM`
 - Allowed user role(s): All excluding `TCU` (note 1)
