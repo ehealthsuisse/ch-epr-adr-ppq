@@ -195,7 +195,7 @@ Notes:
 - Referenced policies / policy sets: 101
 - Effect of referenced policies / policy sets: Permit to enquire document metadata and contents, to modify document
   metadata, and to delegate these permissions to other HCPs
-- Locally defined additional effect: Permit to enquire and delete any privacy policies, and to add and modify privacy
+- Locally defined additional effect: Permit to add and modify privacy
   policies granting the permissions defined in 101
 - Allowed document confidentiality code(s): `NORMAL`
 - Allowed purpose(s) of use: `NORM`, `EMER`
@@ -208,7 +208,7 @@ Notes:
 - Referenced policies / policy sets: 102
 - Effect of referenced policies / policy sets: Permit to enquire document metadata and contents, to modify document
   metadata, and to delegate these permissions to other HCPs
-- Locally defined additional effect: Permit to enquire and delete any privacy policies, and to add and modify privacy
+- Locally defined additional effect: Permit to add and modify privacy
   policies granting the permissions defined in 102
 - Allowed document confidentiality code(s): `NORMAL`, `RESTRICTED`
 - Allowed purpose(s) of use: `NORM`, `EMER`
