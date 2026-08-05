@@ -25,5 +25,4 @@ History:
 	</Description>
 	<Target/>
 	<PolicyIdReference>urn:e-health-suisse:2015:policies:permit-reading-normal</PolicyIdReference>
-	<PolicyIdReference>urn:e-health-suisse:2015:policies:update-metadata-normal</PolicyIdReference>
 </PolicySet>
