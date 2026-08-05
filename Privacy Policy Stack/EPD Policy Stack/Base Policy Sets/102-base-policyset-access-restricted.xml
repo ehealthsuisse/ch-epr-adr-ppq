@@ -5,11 +5,11 @@ Implementation material for Privacy Policy Format
 
 History:
 2021-02-02: third edition
-2021-67-67: fourth edition
+2021-06-07: fourth edition
 2021-08-10: fifth edition
 2022-05-23: sixth edition
 2023-02-01: seventh edition
-2026-08-03: Removed PolicyIdReference update-metadata-normal and update-metadata-restricted, because HCP should not be able to update metadata anymore (see EHSEPDBEP-314)
+2026-08-03: eighth edition (EHSEPDBEP-314: removal of metadata update permission for healthcare professionals and assistants)
 
 ********************************************************
 -->
