@@ -141,9 +141,8 @@ Notes:
 
 - File name: 101-base-policyset-access-normal.xml
 - Policy ID: `urn:e-health-suisse:2015:policies:access-level:normal`
-- Referenced policies / policy sets: 01, 10
-- Effect of referenced policies / policy sets: Permit to enquire document metadata and contents, and to modify document
-  metadata
+- Referenced policies / policy sets: 01
+- Effect of referenced policies / policy sets: Permit to enquire document metadata and contents
 - Locally defined additional effect: --
 - Allowed document confidentiality code(s): `NORMAL`
 - Allowed purpose(s) of use: `NORM`, `EMER`
@@ -153,9 +152,8 @@ Notes:
 
 - File name: 102-base-policyset-access-restricted.xml
 - Policy ID: `urn:e-health-suisse:2015:policies:access-level:restricted`
-- Referenced policies / policy sets: 01, 02, 10, 11
-- Effect of referenced policies / policy sets: Permit to enquire document metadata and contents, and to modify document
-  metadata
+- Referenced policies / policy sets: 01, 02
+- Effect of referenced policies / policy sets: Permit to enquire document metadata and contents
 - Locally defined additional effect: --
 - Allowed document confidentiality code(s): `NORMAL`, `RESTRICTED`
 - Allowed purpose(s) of use: `NORM`, `EMER`
@@ -166,8 +164,8 @@ Notes:
 - File name: 103-base-policyset-access-normal-with-delegation.xml:
 - Policy ID: `urn:e-health-suisse:2015:policies:access-level:delegation-and-normal`
 - Referenced policies / policy sets: 101
-- Effect of referenced policies / policy sets: Permit to enquire document metadata and contents, to modify document
-  metadata, and to delegate these permissions to other HCPs
+- Effect of referenced policies / policy sets: Permit to enquire document metadata and contents, and to delegate these
+  permissions to other HCPs
 - Locally defined additional effect: Permit to add and modify privacy
   policies granting the permissions defined in 101
 - Allowed document confidentiality code(s): `NORMAL`
@@ -179,8 +177,8 @@ Notes:
 - File name: 104-base-policyset-access-restricted-with-delegation.xml:
 - Policy ID: `urn:e-health-suisse:2015:policies:access-level:delegation-up-to-restricted`
 - Referenced policies / policy sets: 102
-- Effect of referenced policies / policy sets: Permit to enquire document metadata and contents, to modify document
-  metadata, and to delegate these permissions to other HCPs
+- Effect of referenced policies / policy sets: Permit to enquire document metadata and contents, and to delegate these
+  permissions to other HCPs
 - Locally defined additional effect: Permit to add and modify privacy
   policies granting the permissions defined in 102
 - Allowed document confidentiality code(s): `NORMAL`, `RESTRICTED`
