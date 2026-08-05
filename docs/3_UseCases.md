@@ -196,6 +196,8 @@ Policy set(s) based on template 303 and referencing this representative shall be
 with particular confidentiality level(s) and to delegate this permission to other healthcare professionals**
 
 A policy set based on template 304 shall be submitted after the onboarding of the patient.
+Note that a policy set based on template 304 grants the delegation right only — an additional policy set
+based on template 301, granting the healthcare professional's own access rights, is always required.
 
 Attributes to fill in the template:
 - Policy set ID

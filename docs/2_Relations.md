@@ -394,8 +394,8 @@ Its sub-element `EnvironmentMatch` for the start date shall be created only if t
 
 - File name: 304-patient-user-assignment-with-delegation-template.xml
 - Referenced policy sets: 103 or 104
-- Effect: Same as respectively 101 or 102, but additionally permit to delegate the same permissions to other healthcare
-  professionals during the permitted period of time.
+- Effect: Permit to delegate the permissions defined by respectively 101 or 102 to other healthcare professionals
+  during the permitted period of time.
 - Allowed document confidentiality code(s):
     - 103 🡒 `NORMAL`
     - 104 🡒 `NORMAL`, `RESTRICTED`
@@ -413,3 +413,7 @@ Its sub-element `EnvironmentMatch` for the start date shall be created only if t
     - ID of the referenced policy set
 
 Elements `ResourceMatch` and `EnvironmentMatch` for the start date shall be created only if this date is provided.
+
+Note that a policy set based on template 304 grants the delegation right only. A healthcare professional with
+delegation rights therefore always needs an additional policy set based on template 301 granting her/his own
+access rights.
