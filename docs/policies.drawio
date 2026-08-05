@@ -61,7 +61,7 @@
         <mxCell id="11" value="Policy set 102&lt;br&gt;&lt;i&gt;access-level:restricted&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="239" y="-1651" width="240" height="68" as="geometry" />
         </mxCell>
-        <mxCell id="13" value="Policy set 104&lt;br&gt;&lt;i&gt;access-level:delegation-up-to-restricted&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="13" value="Policy set 104&lt;br&gt;&lt;i&gt;access-level:delegation-and-restricted&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="240" y="-1762" width="240" height="69" as="geometry" />
         </mxCell>
         <mxCell id="14" value="Policy set 105&lt;br&gt;&lt;i&gt;access-level:full&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">

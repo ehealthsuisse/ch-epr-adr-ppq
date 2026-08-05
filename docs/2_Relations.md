@@ -175,7 +175,7 @@ Notes:
 **Base policy set 104:**
 
 - File name: 104-base-policyset-access-restricted-with-delegation.xml:
-- Policy ID: `urn:e-health-suisse:2015:policies:access-level:delegation-up-to-restricted`
+- Policy ID: `urn:e-health-suisse:2015:policies:access-level:delegation-and-restricted`
 - Referenced policies / policy sets: 102
 - Effect of referenced policies / policy sets: Permit to enquire document metadata and contents, and to delegate these
   permissions to other HCPs
