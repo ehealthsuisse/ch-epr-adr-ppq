@@ -9,6 +9,7 @@ History:
 2021-08-10: fifth edition
 2022-05-23: sixth edition
 2023-02-01: seventh edition
+2026-08-03: Removed PolicyIdReference update-metadata-normal and update-metadata-restricted, because HCP should not be able to update metadata anymore (see EHSEPDBEP-314)
 
 ********************************************************
 -->
@@ -25,6 +26,4 @@ History:
 	<Target/>
 	<PolicyIdReference>urn:e-health-suisse:2015:policies:permit-reading-normal</PolicyIdReference>
 	<PolicyIdReference>urn:e-health-suisse:2015:policies:permit-reading-restricted</PolicyIdReference>
-	<PolicyIdReference>urn:e-health-suisse:2015:policies:update-metadata-normal</PolicyIdReference>
-	<PolicyIdReference>urn:e-health-suisse:2015:policies:update-metadata-restricted</PolicyIdReference>
 </PolicySet>
