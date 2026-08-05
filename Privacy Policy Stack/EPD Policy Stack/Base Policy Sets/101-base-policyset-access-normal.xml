@@ -9,6 +9,7 @@ History:
 2021-08-10: fifth edition
 2022-05-23: sixth edition
 2023-02-01: seventh edition
+2026-08-03: Removed PolicyIdReference update-metadata-normal, because HCP/ASS shall not be able to update metadata anymore (see EHSEPDBEP-314)
 
 ********************************************************
 -->
